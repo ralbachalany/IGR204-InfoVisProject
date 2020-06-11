@@ -60,17 +60,17 @@ d3.json(
 	   .append("path")
 	   .attr("d", path)
 	   .attr("id", function(d, i) {
-	      return "country" + d.properties.iso_a3;
+	      return "country" + d.properties.iso_a2;
 	   })
 	   .attr("class", "country")
 	   // add a mouseover action to show name label for feature/country
 	   .on("mouseover", function(d, i) {
 	      d3.select(this).style("fill", 'rgb(125,0,0)');
-	      d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");
+	      d3.select("#countryLabel" + d.properties.iso_a2).style("display", "block");
 	   })
 	   .on("mouseout", function(d, i) {
 	      d3.select(this).style("fill", 'white');
-	      d3.select("#countryLabel" + d.properties.iso_a3).style("display", "none");
+	      d3.select("#countryLabel" + d.properties.iso_a2).style("display", "none");
 	   })
 	;
 	d3.selectAll(".country").style("fill",'white');
@@ -83,7 +83,7 @@ d3.json(
 	   .append("g")
 	   .attr("class", "countryLabel")
 	   .attr("id", function(d) {
-	      return "countryLabel" + d.properties.iso_a3;
+	      return "countryLabel" + d.properties.iso_a2;
 	   });
 
 	countryLabels.append("rect")
@@ -94,7 +94,7 @@ d3.json(
 		.style("stroke-width",2)
 		.style("stroke", 'rgb(125,0,0)')
 		.attr("id", function(d) {
-			return "countryBg" + d.properties.iso_a3;
+			return "countryBg" + d.properties.iso_a2;
 		});
 
 	window.addEventListener('mousemove', e => {
@@ -115,6 +115,29 @@ d3.json(
 	   })
 	   .call(getTextBox)
 	   ;
-
   }
 );
+
+function conversor(d){
+    d.Mean = +d.Mean;
+    return d;
+}
+
+//code pour colorier les pays 
+d3.csv("./data/happiness.csv",conversor,function(data){
+	let tempH = 10*data[2].Mean;
+	d3.select("#countryAT").style("fill",'hsl('+tempH+',100%,50%)');
+
+	tempH = 10*data[5].Mean;
+	d3.select("#countryBE").style("fill",'hsl('+tempH+',100%,50%)');
+
+	tempH = 10*data[8].Mean;
+	d3.select("#countryBG").style("fill",'hsl('+tempH+',100%,50%)');
+
+	tempH = 10*data[11].Mean;
+	d3.select("#countryCY").style("fill",'hsl('+tempH+',100%,50%)');
+
+	tempH = 10*data[14].Mean;
+	d3.select("#countryCZ").style("fill",'hsl('+tempH+',100%,50%)');
+
+});
