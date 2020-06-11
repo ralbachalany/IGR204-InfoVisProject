@@ -28,8 +28,11 @@ var svg = d3
   .append("svg")
   // set to the same size as the "map-holder" div
   .attr("width", $("#map-holder").width())
-  .attr("height", $("#map-holder").height())
+  .attr("height", $("#map-holder").height());
 
+//var mouse_coords = d3.mouse(this);
+//var mouse_x = mouse_coords[0];
+//var mouse_y = mouse_coords[1];
 
 // get map data
 d3.json(
@@ -62,7 +65,7 @@ d3.json(
 	   .attr("class", "country")
 	   // add a mouseover action to show name label for feature/country
 	   .on("mouseover", function(d, i) {
-	      d3.select(this).style("fill", 'rgba(255,0,0,0.5)');
+	      d3.select(this).style("fill", 'rgb(125,0,0)');
 	      d3.select("#countryLabel" + d.properties.iso_a3).style("display", "block");
 	   })
 	   .on("mouseout", function(d, i) {
@@ -81,48 +84,37 @@ d3.json(
 	   .attr("class", "countryLabel")
 	   .attr("id", function(d) {
 	      return "countryLabel" + d.properties.iso_a3;
-	   })
-	   .attr("transform", function(d) {
-	      return (
-	         "translate(" + path.centroid(d)[0] + "," + path.centroid(d)[1] + ")"
-	      );
-	   })
-	   // add mouseover functionality to the label
-	   .on("mouseover", function(d, i) {
-	      d3.select(this).style("display", "block");
-	   })
-	   .on("mouseout", function(d, i) {
-	       d3.select(this).style("display", "none");
-	   })   
-	;
+	   });
 
+	countryLabels.append("rect")
+		.attr("class","countryBg")
+		.attr("width", 150)
+		.attr("height", 80)
+		.style("fill", '#2A2C39')
+		.style("stroke-width",2)
+		.style("stroke", 'rgb(125,0,0)')
+		.attr("id", function(d) {
+			return "countryBg" + d.properties.iso_a3;
+		});
+
+	window.addEventListener('mousemove', e => {
+		d3.selectAll(".countryBg").attr("x",e.pageX + 5);
+		d3.selectAll(".countryBg").attr("y",e.pageY - 85);
+		d3.selectAll(".countryName").attr("x",e.pageX + 7);
+		d3.selectAll(".countryName").attr("y",e.pageY - 70);
+		});
+	
 	// add the text to the label group showing country name
 	countryLabels
 	   .append("text")
 	   .attr("class", "countryName")
-	   .style("text-anchor", "middle")
 	   .attr("dx", 0)
 	   .attr("dy", 0)
 	   .text(function(d) {
 	      return d.properties.name;
 	   })
 	   .call(getTextBox)
-	;
-	// add a background rectangle the same size as the text
-	countryLabels
-	   .insert("rect", "text")
-	   .attr("class", "countryBg")
-	   .attr("fill",'green')
-	   .attr("transform", function(d) {
-	      return "translate(" + (d.bbox.x - 2) + "," + d.bbox.y + ")";
-	   })
-	   .attr("width", function(d) {
-	      return d.bbox.width + 4;
-	   })
-	   .attr("height", function(d) {
-	      return d.bbox.height;
-	   })
-	;
+	   ;
 
   }
 );
