@@ -77,105 +77,105 @@ d3.json("./data/custom.geo.json",function(json) {
 		//Color//////////////////////////
 		d3.csv("./data/factbook.csv",function(data2){
 
-			max = d3.max(data2, function(d) { return +d.GDP; });
-			var min = d3.min(data2, function(d) { return +d.GDP; });
-			var color_scale = d3.scaleLinear()
-			.domain([min,max])
-			.range([0,180]);
+		max = d3.max(data2, function(d) { return +d.GDP; });
+		var min = d3.min(data2, function(d) { return +d.GDP; });
+		var color_scale = d3.scaleLinear()
+		.domain([min,max])
+		.range([0,180]);
 
-			let tempH = color_scale(data2[1].GDP);
-			d3.select("#countryAT").style("fill",'hsl('+tempH+',100%,50%)');
+		let tempH = color_scale(data2[1].GDP);
+		d3.select("#countryAT").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[2].GDP);
-			d3.select("#countryBE").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[2].GDP);
+		d3.select("#countryBE").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[3].GDP);
-			d3.select("#countryBG").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[3].GDP);
+		d3.select("#countryBG").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[4].GDP);
-			d3.select("#countryHR").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[4].GDP);
+		d3.select("#countryHR").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[5].GDP);
-			d3.select("#countryCY").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[5].GDP);
+		d3.select("#countryCY").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[6].GDP);
-			d3.select("#countryCZ").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[6].GDP);
+		d3.select("#countryCZ").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[7].GDP);
-			d3.select("#countryDK").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[7].GDP);
+		d3.select("#countryDK").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[8].GDP);
-			d3.select("#countryEE").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[8].GDP);
+		d3.select("#countryEE").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[9].GDP);
-			d3.select("#countryFI").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[9].GDP);
+		d3.select("#countryFI").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[10].GDP);
-			d3.select("#countryFR").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[10].GDP);
+		d3.select("#countryFR").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[11].GDP);
-			d3.select("#countryDE").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[11].GDP);
+		d3.select("#countryDE").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[12].GDP);
-			d3.select("#countryGR").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[12].GDP);
+		d3.select("#countryGR").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[13].GDP);
-			d3.select("#countryHU").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[13].GDP);
+		d3.select("#countryHU").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[14].GDP);
-			d3.select("#countryIE").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[14].GDP);
+		d3.select("#countryIE").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[15].GDP);
-			d3.select("#countryIT").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[15].GDP);
+		d3.select("#countryIT").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[16].GDP);
-			d3.select("#countryLV").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[16].GDP);
+		d3.select("#countryLV").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[17].GDP);
-			d3.select("#countryLT").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[17].GDP);
+		d3.select("#countryLT").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[18].GDP);
-			d3.select("#countryLU").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[18].GDP);
+		d3.select("#countryLU").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[19].GDP);
-			d3.select("#countryMK").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[19].GDP);
+		d3.select("#countryMK").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[20].GDP);
-			d3.select("#countryMT").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[20].GDP);
+		d3.select("#countryMT").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[21].GDP);
-			d3.select("#countryNL").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[21].GDP);
+		d3.select("#countryNL").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[22].GDP);
-			d3.select("#countryNO").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[22].GDP);
+		d3.select("#countryNO").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[23].GDP);
-			d3.select("#countryPL").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[23].GDP);
+		d3.select("#countryPL").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[24].GDP);
-			d3.select("#countryPT").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[24].GDP);
+		d3.select("#countryPT").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[25].GDP);
-			d3.select("#countryRO").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[25].GDP);
+		d3.select("#countryRO").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[26].GDP);
-			d3.select("#countrySK").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[26].GDP);
+		d3.select("#countrySK").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[27].GDP);
-			d3.select("#countrySI").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[27].GDP);
+		d3.select("#countrySI").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[28].GDP);
-			d3.select("#countryES").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[28].GDP);
+		d3.select("#countryES").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[29].GDP);
-			d3.select("#countrySE").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[29].GDP);
+		d3.select("#countrySE").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[30].GDP);
-			d3.select("#countryTR").style("fill",'hsl('+tempH+',100%,50%)');
+		tempH = color_scale(data2[30].GDP);
+		d3.select("#countryTR").style("fill",'hsl('+tempH+',100%,50%)');
 
-			tempH = color_scale(data2[31].GDP);
-			d3.select("#countryGB").style("fill",'hsl('+tempH+',100%,50%)');
-		});
+		tempH = color_scale(data2[31].GDP);
+		d3.select("#countryGB").style("fill",'hsl('+tempH+',100%,50%)');
+		
 		//Happiness////////////////////////////////////////////////////		
 		var scale = d3.scaleLinear()
 			.domain([5.8,8.5])
@@ -661,7 +661,14 @@ d3.json("./data/custom.geo.json",function(json) {
 			d3.selectAll(".countryName").attr("x",e.pageX + 7);
 			d3.selectAll(".countryName").attr("y",e.pageY - 70);
 			d3.selectAll(".happiness").attr("x",e.pageX + 7);
-			d3.selectAll(".happiness").attr("y",e.pageY - 10);
+			d3.selectAll(".happiness").attr("y",e.pageY - 40);
+			d3.selectAll(".GDPLabel").attr("x",e.pageX + 7);
+			d3.selectAll(".GDPLabel").attr("y",e.pageY - 55);
+			d3.selectAll(".URLabel").attr("x",e.pageX + 7);
+			d3.selectAll(".URLabel").attr("y",e.pageY - 25);
+			d3.selectAll(".PDLabel").attr("x",e.pageX + 7);
+			d3.selectAll(".PDLabel").attr("y",e.pageY - 10);
+
 			});
 
 		// add the text to the label group showing country name
@@ -683,11 +690,61 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data, function(d){return(d.Country)}).keys();
-		   		indice = Number(array.indexOf(iso));
+		   		var indice = Number(array.indexOf(iso));
 		   		return "Happiness: "+ data[3*indice+2].Mean +"/10";
 		   })
 		   .style("fill",'white')
+		   .style("font-size",12)
 		   .call(getTextBox);
+
+		countryLabels
+		   .append("text")
+		   .attr("class", "GDPLabel")
+		   .attr("dx", 0)
+		   .attr("dy", 0)
+		   .text(function(d) {
+		   		let iso = d.properties.iso_a2;
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		return "GDP: "+data2[indice].GDP;
+		   		})
+		   .style("fill",'white')
+		   .style("font-size",12)
+		   .call(getTextBox);
+
+		   countryLabels
+		   .append("text")
+		   .attr("class", "URLabel")
+		   .attr("dx", 0)
+		   .attr("dy", 0)
+		   .text(function(d) {
+		   		let iso = d.properties.iso_a2;
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		return "Unemployment: "+data2[indice].Unemployment + "%";		
+		   		})
+		   .style("fill",'white')
+		   .style("font-size",12)
+		   .call(getTextBox);
+
+		   countryLabels
+		   .append("text")
+		   .attr("class", "PDLabel")
+		   .attr("dx", 0)
+		   .attr("dy", 0)
+		   .text(function(d) {
+		   		let iso = d.properties.iso_a2;
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		return "Public debt: "+data2[indice].Public_debt +"% of GDP";		
+		   		})
+		   .style("fill",'white')
+		   .style("font-size",12)
+		   .call(getTextBox);
+
+
+		});
+
 	});
 });
 
@@ -696,7 +753,6 @@ function conversor(d){
     return d;
 }
 
-var indice = 0;
 var id;
 
 function animate(el){
@@ -714,4 +770,15 @@ function animate(el){
 		}		
 		el.style("opacity",timer);
 	}
+}
+
+function radioValue() { 
+	var ele = document.getElementsByTagName('input');             
+    for(i = 0; i < ele.length; i++) {
+        if(ele[i].type="radio") {
+            if(ele[i].checked){
+                return ele[i].value;
+            }
+        } 
+    } 
 }
