@@ -77,105 +77,52 @@ d3.json("./data/custom.geo.json",function(json) {
 		//Color//////////////////////////
 		d3.csv("./data/factbook.csv",function(data2){
 
-		max = d3.max(data2, function(d) { return +d.GDP; });
-		var min = d3.min(data2, function(d) { return +d.GDP; });
-		var color_scale = d3.scaleLinear()
-		.domain([min,max])
-		.range([0,180]);
+		if (radioValue()=="GDP"){
+			max = d3.max(data2, function(d) { return +d.GDP; });
+			var min = d3.min(data2, function(d) { return +d.GDP; });
+			var color_scale = d3.scaleLinear()
+			.domain([min,max])
+			.range([0,180]);
 
-		let tempH = color_scale(data2[1].GDP);
-		d3.select("#countryAT").style("fill",'hsl('+tempH+',100%,50%)');
+			d3.selectAll(".country")
+			.style("fill", function(d){
+				let iso = d.properties.iso_a2;
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		let tempH = color_scale(data2[indice].GDP);
+		   		return 'hsl('+tempH+',100%,50%)';
+			});
+		}else if (radioValue()=="Unemployment"){
+			max = d3.max(data2, function(d) { return +d.Unemployment; });
+			var min = d3.min(data2, function(d) { return +d.Unemployment; });
+			var color_scale = d3.scaleLinear()
+			.domain([min,max])
+			.range([0,100]);
 
-		tempH = color_scale(data2[2].GDP);
-		d3.select("#countryBE").style("fill",'hsl('+tempH+',100%,50%)');
+			d3.selectAll(".country")
+			.style("fill", function(d){
+				let iso = d.properties.iso_a2;
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		let tempH = color_scale(max - data2[indice].Unemployment);
+		   		return 'hsl('+tempH+',100%,50%)';
+			});
+		}else if (radioValue()=="Public debt"){
+			max = d3.max(data2, function(d) { return +d.Public_debt; });
+			var min = d3.min(data2, function(d) { return +d.Public_debt; });
+			var color_scale = d3.scaleLinear()
+			.domain([min,max])
+			.range([0,120]);
 
-		tempH = color_scale(data2[3].GDP);
-		d3.select("#countryBG").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[4].GDP);
-		d3.select("#countryHR").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[5].GDP);
-		d3.select("#countryCY").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[6].GDP);
-		d3.select("#countryCZ").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[7].GDP);
-		d3.select("#countryDK").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[8].GDP);
-		d3.select("#countryEE").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[9].GDP);
-		d3.select("#countryFI").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[10].GDP);
-		d3.select("#countryFR").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[11].GDP);
-		d3.select("#countryDE").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[12].GDP);
-		d3.select("#countryGR").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[13].GDP);
-		d3.select("#countryHU").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[14].GDP);
-		d3.select("#countryIE").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[15].GDP);
-		d3.select("#countryIT").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[16].GDP);
-		d3.select("#countryLV").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[17].GDP);
-		d3.select("#countryLT").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[18].GDP);
-		d3.select("#countryLU").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[19].GDP);
-		d3.select("#countryMK").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[20].GDP);
-		d3.select("#countryMT").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[21].GDP);
-		d3.select("#countryNL").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[22].GDP);
-		d3.select("#countryNO").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[23].GDP);
-		d3.select("#countryPL").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[24].GDP);
-		d3.select("#countryPT").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[25].GDP);
-		d3.select("#countryRO").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[26].GDP);
-		d3.select("#countrySK").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[27].GDP);
-		d3.select("#countrySI").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[28].GDP);
-		d3.select("#countryES").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[29].GDP);
-		d3.select("#countrySE").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[30].GDP);
-		d3.select("#countryTR").style("fill",'hsl('+tempH+',100%,50%)');
-
-		tempH = color_scale(data2[31].GDP);
-		d3.select("#countryGB").style("fill",'hsl('+tempH+',100%,50%)');
-		
+			d3.selectAll(".country")
+			.style("fill", function(d){
+				let iso = d.properties.iso_a2;
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		let tempH = color_scale(max - data2[indice].Public_debt);
+		   		return 'hsl('+tempH+',100%,50%)';
+			});
+		}
 		//Happiness////////////////////////////////////////////////////		
 		var scale = d3.scaleLinear()
 			.domain([5.8,8.5])
