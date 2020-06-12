@@ -30,3 +30,31 @@ svg rect {
 .countryLabelBg{
   fill: green;  /* country label background colour */
 }
+
+#chooser{
+  width: 120px;
+  height: 500px;
+  background-color: white;
+  position: absolute;
+  right:20px;
+  top:15px;
+  border-radius: 5px;
+}
+
+.grid-container {  
+  display: grid;
+  grid-template-rows: min min min 50px;
+  grid-gap: 10px;
+  background-color: white;
+  display: inline-block;
+  text-align: center;
+  display: table;
+  margin: 0 auto;
+
+}
+
+.grid-container > div.choice {
+  margin-top: 10px;
+  background-color: gray;
+  border-radius: 5px;
+}
