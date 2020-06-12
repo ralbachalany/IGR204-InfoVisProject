@@ -11,7 +11,7 @@ body {
 }
 svg rect {
   /*fill: #2A2C39;   /* map background colour */
-  fill : lightblue;
+  fill : #4C8FCA;
 }
 .country{
   fill: white;   /* country colour */
