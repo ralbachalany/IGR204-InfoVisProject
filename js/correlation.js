@@ -93,65 +93,6 @@ d3.csv("/data/correlation.csv", function(error, rows) {
     .domain(domainX);
 
     cor.filter(function(d){
-          if(d.y=="") return false;
-          return true;
-        })
-      .append("rect")
-      .attr("width", function(d){
-        return xSpace-rect_border+d.add_width;
-      })
-      .attr("height", function(d){
-        return ySpace-rect_border+d.add_height;
-      })
-      .attr("rx",4)
-      .attr("ry",4)
-      .attr("x", rect_border/2 -xSpace / 2)
-      .attr("y", rect_border/2 -ySpace / 2);
-
-    cor.filter(function(d){
-          if((d.x!="")&&(d.y=="")) return true;
-          return false;
-        })
-      .append("rect")
-      .style('stroke-width',0)
-      .attr("width", function(d){
-        return xSpace-rect_border+d.add_width;
-      })
-      .attr("height", function(d){
-        return ySpace-rect_border+d.add_height;
-      })
-      .style("fill",function(d){
-        return color_label(d.x);
-      })
-      .attr("rx",4)
-      .attr("ry",4)
-      .attr("x", rect_border/2 -xSpace / 2)
-      .attr("y", rect_border/2 -ySpace / 2);
-
-    cor.filter(function(d){
-          if(d.x=="") return true;
-          return false;
-        })
-      .append("text")
-      .attr("x",label_length/2)
-      .attr("y",5)
-      .text(function(d){
-        return d.y;
-      });
-
-    cor.filter(function(d){
-          if(d.y=="") return true;
-            return false;
-        })
-      .append("text")
-      .attr("x",-label_length/2)
-      .attr("y",5)
-      .text(function(d){
-        return d.x;
-      })
-      .attr("transform","rotate(-90)");
-
-    cor.filter(function(d){
         if(d.x=="") return false;
         return true;
       })
@@ -167,6 +108,91 @@ d3.csv("/data/correlation.csv", function(error, rows) {
           return color(d.value)
         }
       });
+
+      cor.filter(function(d){
+            if((d.x=="")&&(d.y!="")) return true;
+            return false;
+          })
+        .append("rect")
+        .attr("width", function(d){
+          return xSpace-rect_border+d.add_width;
+        })
+        .attr("height", function(d){
+          return ySpace-rect_border+d.add_height;
+        })
+        .attr("rx",4)
+        .attr("ry",4)
+        .attr("x", rect_border/2 -xSpace / 2)
+        .attr("y", rect_border/2 -ySpace / 2);
+
+      cor.filter(function(d){
+            if((d.x!="")&&(d.y=="")) return true;
+            return false;
+          })
+        .append("rect")
+        .style('stroke-width',0)
+        .attr("width", function(d){
+          return xSpace-rect_border+d.add_width;
+        })
+        .attr("height", function(d){
+          return ySpace-rect_border+d.add_height;
+        })
+        .style("fill",function(d){
+          return color_label(d.x);
+        })
+        .attr("rx",4)
+        .attr("ry",4)
+        .attr("x", rect_border/2 -xSpace / 2)
+        .attr("y", rect_border/2 -ySpace / 2);
+
+      cor.filter(function(d){
+              if((d.x!="")&&(d.y!="")) return true;
+              return false;
+            })
+          .append("rect")
+          .style("fill","white")
+          .style("fill-opacity","0")
+          .attr("width", function(d){
+            return xSpace-rect_border+d.add_width;
+          })
+          .attr("height", function(d){
+            return ySpace-rect_border+d.add_height;
+          })
+          .attr("rx",4)
+          .attr("ry",4)
+          .attr("x", rect_border/2 -xSpace / 2)
+          .attr("y", rect_border/2 -ySpace / 2)
+          .on("mouseenter",function(d){
+            tooltip.style("opacity",1)
+              .attr("transform", "translate(" + (x(d.x)+label_length+xSpace) + " ,"+(y(d.y)+label_length-20)+")");
+            tool_text.text("value = " + d.value.toFixed(3));
+          })
+          .on("mouseout",function(d){
+            tooltip.style("opacity",0);
+          });
+
+      cor.filter(function(d){
+                if((d.x=="")&&(d.y!="")) return true;
+                return false;
+              })
+            .append("text")
+            .attr("x",label_length/2)
+            .attr("y",5)
+            .text(function(d){
+              return d.y;
+            });
+
+      cor.filter(function(d){
+                if(d.y=="") return true;
+                  return false;
+              })
+            .append("text")
+            .attr("x",-label_length/2)
+            .attr("y",5)
+            .text(function(d){
+              return d.x;
+            })
+            .attr("transform","rotate(-90)");
 
     var aS = d3.scaleLinear()
       .range([-margin.top + 5 + label_length/2, height - 5])
@@ -193,4 +219,20 @@ d3.csv("/data/correlation.csv", function(error, rows) {
         .attr('x',0)
         .attr('y', aS(d))
     });
+
+    var tooltip = svg
+      .append("g")
+      .style("opacity", 0)
+      .attr("transform", "translate(" + 100 + " ,"+100+")");
+
+    tooltip.append("rect")
+      .style("fill", "white")
+      .attr("width",90)
+      .attr("height",25);
+
+
+    var tool_text = tooltip.append("text")
+      .text("test")
+      .attr("transform", "translate(" + 45 + " ,"+18+")")
+      .style("fill","black");
 });
