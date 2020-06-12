@@ -660,6 +660,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			d3.selectAll(".countryBg").attr("y",e.pageY - 85);
 			d3.selectAll(".countryName").attr("x",e.pageX + 7);
 			d3.selectAll(".countryName").attr("y",e.pageY - 70);
+			d3.selectAll(".happiness").attr("x",e.pageX + 7);
+			d3.selectAll(".happiness").attr("y",e.pageY - 10);
 			});
 
 		// add the text to the label group showing country name
@@ -671,8 +673,21 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .text(function(d) {
 		      return d.properties.name;
 		   })
-		   .call(getTextBox)
-		   ;
+		   .call(getTextBox);
+
+		countryLabels
+		   .append("text")
+		   .attr("class", "happiness")
+		   .attr("dx", 0)
+		   .attr("dy", 0)
+		   .text(function(d) {
+		   		let iso = d.properties.iso_a2;
+		   		let array = d3.map(data, function(d){return(d.Country)}).keys();
+		   		indice = Number(array.indexOf(iso));
+		   		return "Happiness: "+ data[3*indice+2].Mean +"/10";
+		   })
+		   .style("fill",'white')
+		   .call(getTextBox);
 	});
 });
 
@@ -681,6 +696,7 @@ function conversor(d){
     return d;
 }
 
+var indice = 0;
 var id;
 
 function animate(el){
@@ -699,13 +715,3 @@ function animate(el){
 		el.style("opacity",timer);
 	}
 }
-/*
-
-<svg height = '400' width = '400' style ="border :1px solid black;" >
-            <circle cx="47" cy="175" r="1"/>
-            <circle cx="53" cy="175" r="1"/>
-            <path d ="M45,180 A 15 100 0 0 0 55,180" fill ="none" stroke ="black" stroke-width ="1" />
-        </svg>
-
-
-*/
