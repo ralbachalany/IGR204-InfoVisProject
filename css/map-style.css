@@ -31,30 +31,34 @@ svg rect {
   fill: green;  /* country label background colour */
 }
 
+
 #chooser{
   width: 120px;
-  height: 500px;
-  background-color: white;
+  height:auto;
+  background-color: #0D12FF;
   position: absolute;
   right:20px;
   top:15px;
   border-radius: 5px;
 }
 
-.grid-container {  
+.grid-container {
   display: grid;
   grid-template-rows: min min min 50px;
   grid-gap: 10px;
-  background-color: white;
+ background-color: #0D12FF;
   display: inline-block;
   text-align: center;
   display: table;
-  margin: 0 auto;
+  margin: 10 auto;
 
 }
 
-.grid-container > div.choice {
+.grid-container > div.choice, div.button {
   margin-top: 10px;
-  background-color: gray;
+  background-color: #F2FFFF;
   border-radius: 5px;
+}
+.button{
+  cursor: pointer;
 }

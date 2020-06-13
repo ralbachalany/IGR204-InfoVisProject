@@ -23,6 +23,7 @@ function getTextBox(selection) {
   });
 }
 
+
 var svg = d3
   .select("#map-holder")
   .append("svg")
@@ -35,7 +36,7 @@ var max
 d3.json("./data/custom.geo.json",function(json) {
 
   	d3.csv("./data/happiness.csv",conversor,function(data){
-	
+
 	    countriesGroup = svg
 	   	.append("g")
 	   	.attr("id", "map")
@@ -92,7 +93,8 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let tempH = color_scale(data2[indice].GDP);
 		   		return 'hsl('+tempH+',100%,50%)';
 			});
-		}else if (radioValue()=="Unemployment"){
+		}
+    else if (radioValue()=="Unemployment"){
 			max = d3.max(data2, function(d) { return +d.Unemployment; });
 			var min = d3.min(data2, function(d) { return +d.Unemployment; });
 			var color_scale = d3.scaleLinear()
@@ -123,7 +125,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return 'hsl('+tempH+',100%,50%)';
 			});
 		}
-		//Happiness////////////////////////////////////////////////////		
+		//Happiness////////////////////////////////////////////////////
 		var scale = d3.scaleLinear()
 			.domain([5.8,8.5])
 			.range([0,100]);
@@ -175,7 +177,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		// Chypre 
+		// Chypre
 
 		center_x = 1165;
 		center_y = 505;
@@ -668,7 +670,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "Unemployment: "+data2[indice].Unemployment + "%";		
+		   		return "Unemployment: "+data2[indice].Unemployment + "%";
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -683,7 +685,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "Public debt: "+data2[indice].Public_debt +"% of GDP";		
+		   		return "Public debt: "+data2[indice].Public_debt +"% of GDP";
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -714,18 +716,70 @@ function animate(el){
 			timer+=0.01;
 		}else{
 			timer-=0.01;
-		}		
+		}
 		el.style("opacity",timer);
 	}
 }
 
-function radioValue() { 
-	var ele = document.getElementsByTagName('input');             
+function radioValue() {
+	var ele = document.getElementsByTagName('input');
     for(i = 0; i < ele.length; i++) {
         if(ele[i].type="radio") {
             if(ele[i].checked){
                 return ele[i].value;
             }
-        } 
-    } 
+        }
+    }
+}
+
+function updateColor(){
+  d3.csv("./data/factbook.csv",function(data2){
+  if (radioValue()=="GDP"){
+    max = d3.max(data2, function(d) { return +d.GDP; });
+    var min = d3.min(data2, function(d) { return +d.GDP; });
+    var color_scale = d3.scaleLinear()
+    .domain([min,max])
+    .range([0,180]);
+
+    d3.selectAll(".country")
+    .style("fill", function(d){
+      let iso = d.properties.iso_a2;
+        let array = d3.map(data2, function(d){return(d.Country)}).keys();
+        var indice = Number(array.indexOf(iso));
+        let tempH = color_scale(data2[indice].GDP);
+        return 'hsl('+tempH+',100%,50%)';
+    });
+  }
+  else if (radioValue()=="Unemployment"){
+    max = d3.max(data2, function(d) { return +d.Unemployment; });
+    var min = d3.min(data2, function(d) { return +d.Unemployment; });
+    var color_scale = d3.scaleLinear()
+    .domain([min,max])
+    .range([0,100]);
+
+    d3.selectAll(".country")
+    .style("fill", function(d){
+      let iso = d.properties.iso_a2;
+        let array = d3.map(data2, function(d){return(d.Country)}).keys();
+        var indice = Number(array.indexOf(iso));
+        let tempH = color_scale(max - data2[indice].Unemployment);
+        return 'hsl('+tempH+',100%,50%)';
+    });
+  }else if (radioValue()=="Public debt"){
+    max = d3.max(data2, function(d) { return +d.Public_debt; });
+    var min = d3.min(data2, function(d) { return +d.Public_debt; });
+    var color_scale = d3.scaleLinear()
+    .domain([min,max])
+    .range([0,120]);
+
+    d3.selectAll(".country")
+    .style("fill", function(d){
+      let iso = d.properties.iso_a2;
+        let array = d3.map(data2, function(d){return(d.Country)}).keys();
+        var indice = Number(array.indexOf(iso));
+        let tempH = color_scale(max - data2[indice].Public_debt);
+        return 'hsl('+tempH+',100%,50%)';
+    });
+  }
+});
 }

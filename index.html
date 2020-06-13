@@ -10,7 +10,7 @@
     </head>
     <body>
         <div id="chooser">
-            <form class="grid-container" name="myForm">
+            <form class="grid-container" name="myForm" >
                 <div class="choice">
                     <input type="radio" id="1" name="attribute" value="GDP" checked="checked">
                     <label for="1" style="font-size: 10px; padding-right: 5px;">GDP per capita</label>
@@ -18,12 +18,13 @@
                 <div class="choice">
                     <input type="radio" id="2" name="attribute" value="Unemployment">
                     <label for="2" style="font-size: 10px; padding-right: 5px;">Unemployment</label>
-                </div>       
+                </div>
                 <div class="choice">
                     <input type="radio" id="3" name="attribute" value="Public debt">
-                    <label for="3" style="font-size: 10px; padding-right: 5px;">Public debt</label>
+                    <label for="3" style="font-size: 12px; padding-right: 12px;">Public debt</label>
                 </div>
-                <div> 
+                <div class="button" onclick="updateColor()">
+                    Update
                 </div>
             </form>
         </div>
