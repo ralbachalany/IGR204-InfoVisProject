@@ -1,5 +1,6 @@
 svg {
-  font: 12px sans-serif;
+  font-size: 10;
+  font-family: sans-serif;
   fill: gray;
   text-anchor: middle;
 }

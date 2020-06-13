@@ -1,6 +1,6 @@
 d3.csv("/data/correlation.csv", function(error, rows) {
     var data = [];
-    var label_length = 65;
+    var label_length = 100;
     for(attribute in rows[0]){
       var y = attribute;
       data.push({
@@ -44,7 +44,7 @@ d3.csv("/data/correlation.csv", function(error, rows) {
     svg_width = 800,
     svg_height = 320,
     width = 600,
-    height = 250,
+    height = 210,
     domainX = d3.set(data.map(function(d) {
         return d.x
     })).values(),
@@ -64,8 +64,8 @@ d3.csv("/data/correlation.csv", function(error, rows) {
     y = d3.scalePoint()
       .range([0, height-height/domainY.length])
       .domain(domainY),
-    xSpace = width/domainX.length,
-    ySpace = height/domainY.length;
+    xSpace = 32,
+    ySpace = 32;
 
     var svg = d3.select("body")
       .append("svg")
@@ -163,9 +163,9 @@ d3.csv("/data/correlation.csv", function(error, rows) {
           .attr("x", rect_border/2 -xSpace / 2)
           .attr("y", rect_border/2 -ySpace / 2)
           .on("mouseenter",function(d){
-            tooltip.style("opacity",1)
-              .attr("transform", "translate(" + (x(d.x)+label_length+xSpace) + " ,"+(y(d.y)+label_length-20)+")");
-            tool_text.text("value = " + d.value.toFixed(3));
+            tooltip.style("opacity",0.8)
+              .attr("transform", "translate(" + (x(d.x)+label_length+xSpace) + " ,"+(y(d.y)+label_length-10)+")");
+            tool_text.text(d.value.toFixed(3));
           })
           .on("mouseout",function(d){
             tooltip.style("opacity",0);
@@ -195,12 +195,12 @@ d3.csv("/data/correlation.csv", function(error, rows) {
             .attr("transform","rotate(-90)");
 
     var aS = d3.scaleLinear()
-      .range([-margin.top + 5 + label_length/2, height - 5])
+      .range([35, height])
       .domain([1, -1]);
 
     var yA = d3.axisRight()
       .scale(aS)
-      .tickPadding(7);
+      .tickPadding(10);
 
     var aG = svg.append("g")
       .attr("class","y axis")
@@ -222,17 +222,18 @@ d3.csv("/data/correlation.csv", function(error, rows) {
 
     var tooltip = svg
       .append("g")
-      .style("opacity", 0)
-      .attr("transform", "translate(" + 100 + " ,"+100+")");
+      .style("opacity", 0);
 
     tooltip.append("rect")
-      .style("fill", "white")
-      .attr("width",90)
+      .style("fill", "black")
+	  .style("rx", "5px")
+	  .style("stroke", "black")
+      .attr("width",50)
       .attr("height",25);
 
 
     var tool_text = tooltip.append("text")
-      .text("test")
-      .attr("transform", "translate(" + 45 + " ,"+18+")")
-      .style("fill","black");
+      .attr("transform", "translate(25,12.5)")
+	  .attr("alignment-baseline", "middle")
+      .style("fill","white");
 });
