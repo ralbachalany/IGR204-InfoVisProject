@@ -582,6 +582,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cx",center_x+3)
 			.attr("cy",center_y-5)
 			.attr("r",1);
+
 		// label part/////////////////////////////////////
 		countryLabels = countriesGroup
 		   .selectAll("g")
@@ -595,28 +596,28 @@ d3.json("./data/custom.geo.json",function(json) {
 
 		countryLabels.append("rect")
 			.attr("class","countryBg")
-			.attr("width", 150)
-			.attr("height", 80)
-			.style("fill", '#2A2C39')
-			.style("stroke-width",2)
-			.style("stroke", 'rgb(125,0,0)')
+			.attr("width", 180)
+			.attr("height", 100)
+			.style("fill", "black")
+			.style("opacity",0.8)
+			.style("rx",10)
 			.attr("id", function(d) {
 				return "countryBg" + d.properties.iso_a2;
 			});
 
 		window.addEventListener('mousemove', e => {
 			d3.selectAll(".countryBg").attr("x",e.pageX + 5);
-			d3.selectAll(".countryBg").attr("y",e.pageY - 85);
-			d3.selectAll(".countryName").attr("x",e.pageX + 7);
-			d3.selectAll(".countryName").attr("y",e.pageY - 70);
-			d3.selectAll(".happiness").attr("x",e.pageX + 7);
-			d3.selectAll(".happiness").attr("y",e.pageY - 40);
-			d3.selectAll(".GDPLabel").attr("x",e.pageX + 7);
-			d3.selectAll(".GDPLabel").attr("y",e.pageY - 55);
-			d3.selectAll(".URLabel").attr("x",e.pageX + 7);
-			d3.selectAll(".URLabel").attr("y",e.pageY - 25);
-			d3.selectAll(".PDLabel").attr("x",e.pageX + 7);
-			d3.selectAll(".PDLabel").attr("y",e.pageY - 10);
+			d3.selectAll(".countryBg").attr("y",e.pageY - 100);
+			d3.selectAll(".countryName").attr("x",e.pageX);
+			d3.selectAll(".countryName").attr("y",e.pageY - 80);
+			d3.selectAll(".happiness").attr("x",e.pageX + 15);
+			d3.selectAll(".happiness").attr("y",e.pageY - 60);
+			d3.selectAll(".GDPLabel").attr("x",e.pageX + 15);
+			d3.selectAll(".GDPLabel").attr("y",e.pageY - 45);
+			d3.selectAll(".URLabel").attr("x",e.pageX + 15);
+			d3.selectAll(".URLabel").attr("y",e.pageY - 30);
+			d3.selectAll(".PDLabel").attr("x",e.pageX + 15);
+			d3.selectAll(".PDLabel").attr("y",e.pageY - 15);
 
 			});
 
@@ -624,18 +625,17 @@ d3.json("./data/custom.geo.json",function(json) {
 		countryLabels
 		   .append("text")
 		   .attr("class", "countryName")
-		   .attr("dx", 0)
-		   .attr("dy", 0)
+		   .attr("dx",90)
+		   .attr("text-anchor","middle")
 		   .text(function(d) {
-		      return d.properties.name;
+		      return d.properties.name.toUpperCase();
 		   })
+		   .style("font-size",12)
 		   .call(getTextBox);
 
 		countryLabels
 		   .append("text")
 		   .attr("class", "happiness")
-		   .attr("dx", 0)
-		   .attr("dy", 0)
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data, function(d){return(d.Country)}).keys();
@@ -649,8 +649,6 @@ d3.json("./data/custom.geo.json",function(json) {
 		countryLabels
 		   .append("text")
 		   .attr("class", "GDPLabel")
-		   .attr("dx", 0)
-		   .attr("dy", 0)
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
@@ -664,8 +662,6 @@ d3.json("./data/custom.geo.json",function(json) {
 		   countryLabels
 		   .append("text")
 		   .attr("class", "URLabel")
-		   .attr("dx", 0)
-		   .attr("dy", 0)
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
@@ -679,8 +675,6 @@ d3.json("./data/custom.geo.json",function(json) {
 		   countryLabels
 		   .append("text")
 		   .attr("class", "PDLabel")
-		   .attr("dx", 0)
-		   .attr("dy", 0)
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
