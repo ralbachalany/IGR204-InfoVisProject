@@ -45,7 +45,7 @@ d3.csv("/data/correlation.csv", function(error, rows) {
     svg_width = bound.width,
     svg_height = bound.height,
     width = svg_width*0.75,
-    height = (svg_height-label_length)*0.95,
+    height = (svg_height-label_length)*0.90,
     domainX = d3.set(data.map(function(d) {
         return d.x
     })).values(),
