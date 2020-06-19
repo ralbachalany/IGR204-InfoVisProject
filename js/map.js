@@ -37,6 +37,34 @@ d3.json("./data/custom.geo.json",function(json) {
 
   	d3.csv("./data/happiness.csv",conversor,function(data){
 
+	  var aS = d3.scaleLinear()
+		.range([0, 120])
+		.domain([0, 100]);
+  
+	  var yA = d3.axisRight()
+		.scale(aS)
+		.tickPadding(10);
+  
+	  var aG = svg.append("g")
+		.attr("class","y axis");
+  
+	  var iR = d3.range(0, 120, 1);
+	  iR.forEach(function(d){
+		aG.append('rect')
+		  .style('fill', "black")
+		  .style('stroke-width',0)
+		  .style('stoke','none')
+		  .attr('height', 100)
+		  .attr('width', 10)
+		  .attr('x',0)
+		  .attr('y', aS(d))
+	  });
+  
+	  var tooltip = svg
+		.append("g")
+		.style("opacity", 0);
+
+
 	    countriesGroup = svg
 	   	.append("g")
 	   	.attr("id", "map")
