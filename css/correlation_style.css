@@ -1,0 +1,17 @@
+#correlation svg {
+  font-size: 10;
+  font-family: sans-serif;
+  fill: gray;
+  text-anchor: middle;
+}
+
+#correlation rect {
+  stroke: lightgray;
+  stoke-width: 2px;
+  fill: none;
+}
+
+#correlation .y.axis path{
+  fill: none;
+  stroke: none;
+}
