@@ -1,6 +1,6 @@
-const width = 1100;
-const height = 1100;
-const margin = 150;
+const width = 600;
+const height = 600;
+const margin = 100;
 
 let radius = Math.min(width, height) / 2 - margin;
 
@@ -20,9 +20,6 @@ z = d3.scaleOrdinal()
             "#eba6ff", "#f9feae", "#b1fb27", "#9ccfbe", "#f1e9e6", 
             "#ebb678", "#fec0df", "#cac2fc", "#fee5d4", "#6fdf6e", 
             "#d3fe94", "#ffba6e", "#c7ecf9", "#72dbf2", "#cedbd8"]);
-
-
-let percentageFormat = d3.format("%");
 
 
 function getPieChartByCountry(country){
@@ -128,7 +125,7 @@ function getPieChartByCountry(country){
             return (midAngle < Math.PI ? "start" : "end");
           })
           .style("font-family", "sans serif")
-          .style("font-size", 15);
+          .style("font-size", 10);
 
           labels
             .exit()
