@@ -41,10 +41,11 @@ d3.csv("/data/correlation.csv", function(error, rows) {
       bottom: 25,
       left: 0
     },
-    svg_width = 700,
-    svg_height = 320,
-    width = 540,
-    height = 210,
+    bound = d3.select("#correlation").node().getBoundingClientRect();
+    svg_width = bound.width,
+    svg_height = bound.height,
+    width = svg_width*0.75,
+    height = (svg_height-label_length)*0.95,
     domainX = d3.set(data.map(function(d) {
         return d.x
     })).values(),
@@ -83,7 +84,8 @@ d3.csv("/data/correlation.csv", function(error, rows) {
         return "translate(" + (x(d.x)+xSpace/2+label_length-d.add_width) + "," + (y(d.y)+ySpace/2+label_length-d.add_height) + ")";
       });
 
-    var rect_border = 5;
+    var rect_border = 8;
+    var rect_radius = 4;
 
     var color_label = d3.scaleOrdinal()
     .range(["#cedbd8","#a9c5fd", "#fbfd52", "#fda899", "#06f6a4", "#f9dc56",
@@ -140,8 +142,8 @@ d3.csv("/data/correlation.csv", function(error, rows) {
         .style("fill",function(d){
           return color_label(d.x);
         })
-        .attr("rx",4)
-        .attr("ry",4)
+        .attr("rx",rect_radius)
+        .attr("ry",rect_radius)
         .attr("x", rect_border/2 -xSpace / 2)
         .attr("y", rect_border/2 -ySpace / 2);
 
@@ -158,8 +160,8 @@ d3.csv("/data/correlation.csv", function(error, rows) {
           .attr("height", function(d){
             return ySpace-rect_border+d.add_height;
           })
-          .attr("rx",4)
-          .attr("ry",4)
+          .attr("rx",rect_radius)
+          .attr("ry",rect_radius)
           .attr("x", rect_border/2 -xSpace / 2)
           .attr("y", rect_border/2 -ySpace / 2)
           .on("mouseenter",function(d){

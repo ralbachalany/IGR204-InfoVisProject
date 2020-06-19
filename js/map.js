@@ -1,7 +1,8 @@
 // DEFINE VARIABLES
 // Define size of map group
-w_map = 500;
-h_map = 250;
+bound_map = d3.select("#map").node().getBoundingClientRect();
+w_map = bound_map.width;
+h_map = bound_map.height;
 
 // Define map projection
 var projection = d3

@@ -1,5 +1,6 @@
-const width_by_country = 500;
-const height_by_country = 500;
+bound_by_country = d3.select("#by_country").node().getBoundingClientRect();
+const width_by_country = bound_by_country.width;
+const height_by_country = bound_by_country.height;
 const margin_by_county = 150;
 
 let radius = Math.min(width_by_country, height_by_country) / 2 - margin_by_county;
@@ -22,7 +23,6 @@ z = d3.scaleOrdinal()
             "#eba6ff", "#f9feae", "#b1fb27", "#9ccfbe", "#f1e9e6",
             "#ebb678", "#fec0df", "#cac2fc", "#fee5d4", "#6fdf6e",
             "#d3fe94", "#ffba6e", "#c7ecf9", "#72dbf2", "#cedbd8"]);
-
 
 function getPieChartByCountry(country){
   str = "data/PieChartData/" + country + ".csv";

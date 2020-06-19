@@ -1,5 +1,6 @@
-const w_rita = 500;
-const h_rita = 250;
+bound_rita = d3.select("#rita").node().getBoundingClientRect();
+const w_rita = bound_rita.width*0.9;
+const h_rita = bound_rita.height*0.9;
 
 let margin = {top: 100, right: 200, bottom: 0, left: 100};
 
