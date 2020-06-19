@@ -32,10 +32,18 @@ svg rect {
 }
 
 #legend{
-  width:100px;
-  height:100px;
+  width:200px;
+  height:200px;
   position: absolute;
   left:20px;
+  top:20px;
+  background-color: white;
+}
+#smiley_legend{
+  width:200px;
+  height:200px;
+  position: absolute;
+  left:240px;
   top:20px;
   background-color: white;
 }

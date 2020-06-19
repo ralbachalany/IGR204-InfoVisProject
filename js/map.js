@@ -32,34 +32,76 @@ var svg = d3
   .attr("height", $("#map-holder").height());
 
 var max
+
+var legend = d3.select("#legend").append("svg").attr("width",$("#legend").width()).attr("height", $("#legend").height());
+var smiley_legend = d3.select("#smiley_legend").append("svg").attr("width",$("#smiley_legend").width()).attr("height", $("#smiley_legend").height());
+var smileys = [6,6.5,7,7.5,8,8.5];
+var scale_legend = d3.scaleLinear()
+.range([0,100])
+.domain([6,8.5]);
+smileys.forEach(d => {
+	var center_x = 10;
+	var center_y = 10+scale_legend(d);
+	smiley_legend.append("path")
+		.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale_legend(d) +" 0 0 0 "+ (center_x+5) +","+center_y)
+		.attr("stroke-width",1)
+		.attr("stroke",'black')
+		.attr("fill", 'none');
+	smiley_legend.append("circle")
+		.attr("cx",center_x-3)
+		.attr("cy",center_y-5)
+		.attr("r",1);
+	smiley_legend.append("circle")
+		.attr("cx",center_x+3)
+		.attr("cy",center_y-5)
+		.attr("r",1);
+	smiley_legend.append("text").attr("x",center_x+10).attr("y",center_y).text(d).style("dominant-baseline","middle").style("font-size",10);
+});
+
+var updateColorLegend = function(min,max) {
+	d3.selectAll("#legend > svg > *").remove();
+  var color = d3.scaleLinear()
+	.domain([min,max])
+	.range([0,120]);
+
+  var getColor = function(d) {
+		   return 'hsl('+color(d)+',100%,50%)';}
+
+  var aS = d3.scaleLinear()
+	.range([0, 120])
+	.domain([min, max]);
+
+  var yA = d3.axisRight()
+	.scale(aS)
+	.tickPadding(10);
+
+  var aG = legend.append("g")
+	.attr("class","y axis")
+	.attr("transform","translate(10,10)")
+	.call(yA);
+
+  var iR = d3.range(min, max, (max - min)/100);
+  iR.forEach(function(d){
+	aG.append('rect')
+	  .style('fill', getColor(d))
+	  .style('stroke-width',0)
+	  .style('stoke','none')
+	  .attr('height', 3)
+	  .attr('width', 10)
+	  .attr('x',0)
+	  .attr('y', aS(d))
+  });
+}
+
 // get map data
 d3.json("./data/custom.geo.json",function(json) {
 
   	d3.csv("./data/happiness.csv",conversor,function(data){
 
-	  var aS = d3.scaleLinear()
-		.range([0, 120])
-		.domain([0, 100]);
-  
-	  var yA = d3.axisRight()
-		.scale(aS)
-		.tickPadding(10);
-  
-	  var aG = svg.append("g")
-		.attr("class","y axis");
-  
-	  var iR = d3.range(0, 120, 1);
-	  iR.forEach(function(d){
-		aG.append('rect')
-		  .style('fill', "black")
-		  .style('stroke-width',0)
-		  .style('stoke','none')
-		  .attr('height', 100)
-		  .attr('width', 10)
-		  .attr('x',0)
-		  .attr('y', aS(d))
-	  });
-  
+	
+	
+	
+	  
 	  var tooltip = svg
 		.append("g")
 		.style("opacity", 0);
@@ -111,7 +153,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			var min = d3.min(data2, function(d) { return +d.GDP; });
 			var color_scale = d3.scaleLinear()
 			.domain([min,max])
-			.range([0,180]);
+			.range([0,120]);
 
 			d3.selectAll(".country")
 			.style("fill", function(d){
@@ -120,14 +162,16 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		var indice = Number(array.indexOf(iso));
 		   		let tempH = color_scale(data2[indice].GDP);
 		   		return 'hsl('+tempH+',100%,50%)';
-			});
+			})
+			updateColorLegend(min,max);
+
 		}
     else if (radioValue()=="Unemployment"){
 			max = d3.max(data2, function(d) { return +d.Unemployment; });
 			var min = d3.min(data2, function(d) { return +d.Unemployment; });
 			var color_scale = d3.scaleLinear()
 			.domain([min,max])
-			.range([0,100]);
+			.range([0,120]);
 
 			d3.selectAll(".country")
 			.style("fill", function(d){
@@ -753,55 +797,63 @@ function radioValue() {
         }
     }
 }
-
 function updateColor(){
-  d3.csv("./data/factbook.csv",function(data2){
-  if (radioValue()=="GDP"){
-    max = d3.max(data2, function(d) { return +d.GDP; });
-    var min = d3.min(data2, function(d) { return +d.GDP; });
-    var color_scale = d3.scaleLinear()
-    .domain([min,max])
-    .range([0,180]);
-
-    d3.selectAll(".country")
-    .style("fill", function(d){
-      let iso = d.properties.iso_a2;
-        let array = d3.map(data2, function(d){return(d.Country)}).keys();
-        var indice = Number(array.indexOf(iso));
-        let tempH = color_scale(data2[indice].GDP);
-        return 'hsl('+tempH+',100%,50%)';
-    });
+	d3.csv("./data/factbook.csv",function(data2){
+	if (radioValue()=="GDP"){
+	  max = d3.max(data2, function(d) { return +d.GDP; });
+	  var min = d3.min(data2, function(d) { return +d.GDP; });
+	  var color_scale = d3.scaleLinear()
+	  .domain([min,max])
+	  .range([0,120]);
+	  updateColorLegend(min,max);
+	  console.log(min);
+	  console.log(max);
+  
+	  d3.selectAll(".country")
+	  .style("fill", function(d){
+		let iso = d.properties.iso_a2;
+		  let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		  var indice = Number(array.indexOf(iso));
+		  let tempH = color_scale(data2[indice].GDP);
+		  return 'hsl('+tempH+',100%,50%)';
+	  });
+	}
+	else if (radioValue()=="Unemployment"){
+	  max = d3.max(data2, function(d) { return +d.Unemployment; });
+	  var min = d3.min(data2, function(d) { return +d.Unemployment; });
+	  var color_scale = d3.scaleLinear()
+	  .domain([min,max])
+	  .range([0,120]);
+	  updateColorLegend(min,max);
+	  console.log(min);
+	  console.log(max);
+  
+	  d3.selectAll(".country")
+	  .style("fill", function(d){
+		let iso = d.properties.iso_a2;
+		  let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		  var indice = Number(array.indexOf(iso));
+		  let tempH = color_scale(max - data2[indice].Unemployment);
+		  return 'hsl('+tempH+',100%,50%)';
+	  });
+	}else if (radioValue()=="Public debt"){
+	  max = d3.max(data2, function(d) { return +d.Public_debt; });
+	  var min = d3.min(data2, function(d) { return +d.Public_debt; });
+	  var color_scale = d3.scaleLinear()
+	  .domain([min,max])
+	  .range([0,120]);
+	  updateColorLegend(min,max);
+	  console.log(min);
+	  console.log(max);
+  
+	  d3.selectAll(".country")
+	  .style("fill", function(d){
+		let iso = d.properties.iso_a2;
+		  let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		  var indice = Number(array.indexOf(iso));
+		  let tempH = color_scale(max - data2[indice].Public_debt);
+		  return 'hsl('+tempH+',100%,50%)';
+	  });
+	}
+  });
   }
-  else if (radioValue()=="Unemployment"){
-    max = d3.max(data2, function(d) { return +d.Unemployment; });
-    var min = d3.min(data2, function(d) { return +d.Unemployment; });
-    var color_scale = d3.scaleLinear()
-    .domain([min,max])
-    .range([0,100]);
-
-    d3.selectAll(".country")
-    .style("fill", function(d){
-      let iso = d.properties.iso_a2;
-        let array = d3.map(data2, function(d){return(d.Country)}).keys();
-        var indice = Number(array.indexOf(iso));
-        let tempH = color_scale(max - data2[indice].Unemployment);
-        return 'hsl('+tempH+',100%,50%)';
-    });
-  }else if (radioValue()=="Public debt"){
-    max = d3.max(data2, function(d) { return +d.Public_debt; });
-    var min = d3.min(data2, function(d) { return +d.Public_debt; });
-    var color_scale = d3.scaleLinear()
-    .domain([min,max])
-    .range([0,120]);
-
-    d3.selectAll(".country")
-    .style("fill", function(d){
-      let iso = d.properties.iso_a2;
-        let array = d3.map(data2, function(d){return(d.Country)}).keys();
-        var indice = Number(array.indexOf(iso));
-        let tempH = color_scale(max - data2[indice].Public_debt);
-        return 'hsl('+tempH+',100%,50%)';
-    });
-  }
-});
-}
