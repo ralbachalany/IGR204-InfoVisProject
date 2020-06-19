@@ -1,5 +1,5 @@
-const w = 1200;
-const h = 600;
+const w_rita = 500;
+const h_rita = 250;
 
 let margin = {top: 100, right: 200, bottom: 0, left: 100};
 
@@ -10,7 +10,7 @@ let y = [];
 let z = [];
 let legend = [];
 
-let svg = d3.select(".box").append("svg").attr("width", w).attr("height", h);
+let svg_rita = d3.select("#rita").append("svg").attr("width", w_rita).attr("height", h_rita);
 let div = d3.select("body").append("div").attr("class", "tooltip")
 .style("position", "absolute")
 .style("z-index", 10)
@@ -70,11 +70,11 @@ d3.csv("data/TimeUse.csv").row( (d, i, columns) => {
     legend[3] = keys.slice(15,20);
 
     y = d3.scaleBand()
-    .rangeRound([margin.top, h])
+    .rangeRound([margin.top, h_rita])
     .paddingInner(0.2);
 
     x = d3.scaleLinear()
-    .rangeRound([margin.left, w-margin.right]);
+    .rangeRound([margin.left, w_rita-margin.right]);
 
     z = d3.scaleOrdinal()
     .range(["#a9c5fd", "#fbfd52", "#fda899", "#06f6a4", "#f9dc56",
@@ -91,7 +91,7 @@ d3.csv("data/TimeUse.csv").row( (d, i, columns) => {
 });
 
 function draw() {
-    svg.append("g")
+    svg_rita.append("g")
     .selectAll("g")
     .data(d3.stack().keys(keys)(dataset))
     .enter().append("g")
@@ -120,12 +120,12 @@ function draw() {
         div.style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
       });
 
-    svg.append("g")
+    svg_rita.append("g")
     .selectAll("rect")
     .data(dataset)
     .enter().append("rect")
       .attr("y", function(d) { return  y(d.Country); })
-      .attr("x", w - margin.right)
+      .attr("x", w_rita - margin.right)
       .attr("width", function(d) { return margin.right/10*d.Happiness; })
       .attr("height", 1)
       .attr("transform", function(d) {
@@ -137,15 +137,15 @@ function draw() {
         else if(d.Sex == "Males") return "Blue";
       });
 
-    svg.append("text")
+    svg_rita.append("text")
         .attr("y", margin.top)
-        .attr("x", w - margin.right + 60)
+        .attr("x", w_rita - margin.right + 60)
         .text("Happiness")
         .style("fill", "black")
         .style("font-family", "sans-serif")
         .style("font-size", 10)
 
-    svg.append("g")
+    svg_rita.append("g")
       .attr("fill", "black")
       .attr("font-family", "sans-serif")
       .attr("font-size", 10)
@@ -153,7 +153,7 @@ function draw() {
     .selectAll("text")
     .data(dataset)
     .enter().append("text")
-      .attr("x", function(d) { return w - margin.right + margin.right/10*d.Happiness; })
+      .attr("x", function(d) { return w_rita - margin.right + margin.right/10*d.Happiness; })
       .attr("y", function(d) { return  y(d.Country); })
       .attr("transform", function(d) {
         if(d.Sex == "Females") return "translate(0,"+0.75*y.bandwidth()+")";
@@ -161,19 +161,19 @@ function draw() {
       })
       .text(d => d.Happiness);
 
-    svg.append("g")
+    svg_rita.append("g")
       .attr("transform", "translate("+margin.left+",0)")
       .call(d3.axisLeft(y).tickSizeOuter(0))
       .call(g => g.selectAll(".domain").remove());
 
-    svg.append("g")
+    svg_rita.append("g")
       .attr("transform", "translate(0,"+margin.top+")")
-      .call(d3.axisTop(d3.scaleLinear().rangeRound([margin.left, w-margin.right]).domain([0,48])).ticks(24))
+      .call(d3.axisTop(d3.scaleLinear().rangeRound([margin.left, w_rita-margin.right]).domain([0,48])).ticks(24))
       .call(g => g.selectAll(".domain").remove());
 
     var j = 10;
     legend.forEach(l => {
-      svg.selectAll("circles")
+      svg_rita.selectAll("circles")
         .data(l)
         .enter()
         .append("circle")
@@ -182,7 +182,7 @@ function draw() {
           .attr("r", 5)
           .style("fill", function(d){ return z(d)})
 
-      svg.selectAll("labels")
+      svg_rita.selectAll("labels")
         .data(l)
         .enter()
         .append("text")

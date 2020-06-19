@@ -1,0 +1,61 @@
+#map-holder {
+  width: 100vw;
+  height: 100vh;
+}
+
+.country{
+  fill: white;   /* country colour */
+  stroke: #2A2C39; /* country border colour */
+  stroke-width: 1; /* country border width */
+}
+.country-on{
+  fill: red;   /* highlight colour for selected country */
+}
+.countryLabel{
+  display: none;   /* hide all country labels by default */
+}
+.countryName{
+  fill: #FFFAFF;   /* country label text colour */
+}
+.countryLabelBg{
+  fill: green;  /* country label background colour */
+}
+
+
+#chooser{
+  width: auto;
+  height: auto;
+  background-color: #0D12FF;
+  position: absolute;
+  right:20px;
+  top:20px;
+  border-radius: 10px;
+}
+
+.grid-container {
+  grid-template-rows: min min min 50px;
+  grid-gap: 10px;
+  background-color: #0D12FF;
+  display: table-cell;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.grid-container > div.choice {
+  background-color: #F2FFFF;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.grid-container > div.choice > label {
+  font-size: 10px;
+  font-family: sans-serif;
+  padding-right: 10px;
+  vertical-align: middle;
+}
+
+.grid-container > div.choice > input {
+  margin-top: -1px;
+  vertical-align: middle;
+}
