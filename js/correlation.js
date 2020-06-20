@@ -1,4 +1,4 @@
-d3.csv("/data/correlation.csv", function(error, rows) {
+d3.csv("data/correlation.csv", function(error, rows) {
     var data = [];
     var label_length = 100;
     for(attribute in rows[0]){
