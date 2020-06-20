@@ -1,8 +1,8 @@
 // DEFINE VARIABLES
 // Define size of map group
 bound_map = d3.select("#container").node().getBoundingClientRect();
-w_map = bound_map.width;
-h_map = bound_map.height;
+var w_map = bound_map.width;
+var h_map = bound_map.height;
 
 // Define map projection
 var projection = d3
@@ -788,6 +788,7 @@ function conversor(d){
 }
 
 var id;
+updateColor();
 
 function animate(el){
 	var timer=1;
