@@ -1,7 +1,7 @@
 bound_by_country = d3.select("#by_country").node().getBoundingClientRect();
 const width_by_country = bound_by_country.width;
 const height_by_country = bound_by_country.height;
-const margin_by_country = 50;
+const margin_by_country = 110;
 
 let radius = Math.min(width_by_country, height_by_country) / 2 - margin_by_country;
 
@@ -55,11 +55,11 @@ function getPieChartByCountry(country){
 
         let dataTest = pie(d3.entries(data));
 
-        let arc = d3.arc().innerRadius(radius*0.4)
-                          .outerRadius(radius*0.8);
+        let arc = d3.arc().innerRadius(radius*0.35)
+                          .outerRadius(radius*0.65);
 
-        let outerArc = d3.arc().innerRadius(radius * 1)
-                              .outerRadius(radius * 1);
+        let outerArc = d3.arc().innerRadius(radius * 0.75)
+                              .outerRadius(radius * 0.75);
 
         let slices = svg.selectAll("path")
                         .data(dataTest);
@@ -100,7 +100,7 @@ function getPieChartByCountry(country){
               var posB = outerArc.centroid(d);
               var posC = outerArc.centroid(d);
               var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-              posC[0] = radius * 0.95 * (midAngle < Math.PI ? 1 : -1);
+              posC[0] = radius * 0.8 * (midAngle < Math.PI ? 1 : -1);
               return [posA, posB, posC]
             });
 
@@ -118,7 +118,7 @@ function getPieChartByCountry(country){
           .attr("transform", function(d) {
             var pos = outerArc.centroid(d);
             var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-            pos[0] = radius * 0.99 * (midAngle < Math.PI ? 1 : -1);
+            pos[0] = radius * 0.85 * (midAngle < Math.PI ? 1 : -1);
             return "translate(" + pos + ")";
           })
           .style("text-anchor", function(d) {
@@ -126,7 +126,7 @@ function getPieChartByCountry(country){
             return (midAngle < Math.PI ? "start" : "end");
           })
           .style("font-family", "sans serif")
-          .style("font-size", 10)
+          .style("font-size", 6)
 
           labels
             .exit()
@@ -150,4 +150,4 @@ function getPieChartByCountry(country){
 
 }
 
-getPieChartByCountry("France");
+getPieChartByCountry("Belgium");

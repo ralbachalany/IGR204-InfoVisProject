@@ -140,6 +140,9 @@ d3.json("./data/custom.geo.json",function(json) {
 		      d3.select(this).style("opacity", 1);
 		      d3.select("#countryLabel" + d.properties.iso_a2).style("display", "none");
 		   })
+		   .on("click", function(d, i) {
+			   getPieChartByCountry("France");
+		   })
 		;
 		d3.selectAll(".country").style("fill",'white');
 
