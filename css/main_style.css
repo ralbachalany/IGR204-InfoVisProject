@@ -14,16 +14,20 @@ body {
   height: 100%;
 }
 
-#map, #by_country{
-  width: 25%;
+#map {
+  width: 30%;
   height: 100%;
-  border: solid;
+  position: relative;
+}
+
+#by_country{
+  width: 20%;
+  height: 100%;
   position: relative;
 }
 
 #correlation, #rita {
   width: 50%;
-  height: 45%;
-  border: solid;
+  height: 50%;
   position: relative;
 }

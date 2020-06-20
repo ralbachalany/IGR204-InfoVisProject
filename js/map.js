@@ -7,8 +7,8 @@ h_map = bound_map.height;
 // Define map projection
 var projection = d3
    .geoMercator()
-   .center([450, 13]) // set centre to further North
-   .scale([w_map/(2*Math.PI)]) // scale to fit group width
+   .center([423, 57]) // set centre to further North
+   .scale([1.2*w_map/Math.PI]) // scale to fit group width
    .translate([w_map/2,h_map/2]) // ensure centred in group
 ;
 
@@ -34,15 +34,16 @@ var svg_map = d3
 
 var max
 
-var legend_map = d3.select("#legend").append("svg").attr("width",$("#legend").width()).attr("height", $("#legend").height());
-var smiley_legend = d3.select("#smiley_legend").append("svg").attr("width",$("#smiley_legend").width()).attr("height", $("#smiley_legend").height());
+//var legend_map = d3.select("#legend").append("svg").attr("width",$("#legend").width()).attr("height", $("#legend").height());
+var legend_map = d3.select("#legend").append("svg");
+var smiley_legend = d3.select("#smiley_legend").append("svg");
 var smileys = [6,6.5,7,7.5,8,8.5];
 var scale_legend = d3.scaleLinear()
 .range([0,100])
 .domain([6,8.5]);
 smileys.forEach(d => {
-	var center_x = 10;
-	var center_y = 10+scale_legend(d);
+	var center_x = 15;
+	var center_y = 20+scale_legend(d);
 	smiley_legend.append("path")
 		.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale_legend(d) +" 0 0 0 "+ (center_x+5) +","+center_y)
 		.attr("stroke-width",1)
@@ -56,7 +57,7 @@ smileys.forEach(d => {
 		.attr("cx",center_x+3)
 		.attr("cy",center_y-5)
 		.attr("r",1);
-	smiley_legend.append("text").attr("x",center_x+10).attr("y",center_y).text(d).style("dominant-baseline","middle").style("font-size",10);
+	smiley_legend.append("text").attr("x",center_x+15).attr("y",center_y).text(d).style("dominant-baseline","middle").style("font-size",10);
 });
 
 var updateColorLegend = function(min,max) {
@@ -99,14 +100,9 @@ d3.json("./data/custom.geo.json",function(json) {
 
   	d3.csv("./data/happiness.csv",conversor,function(data){
 
-
-
-
-
 	  var tooltip = svg_map
 		.append("g")
 		.style("opacity", 0);
-
 
 	    countriesGroup = svg_map
 	   	.append("g")
@@ -199,7 +195,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return 'hsl('+tempH+',100%,50%)';
 			});
 		}
-		//Happiness////////////////////////////////////////////////////
+/*		//Happiness////////////////////////////////////////////////////
 		var scale = d3.scaleLinear()
 			.domain([5.8,8.5])
 			.range([0,100]);
@@ -656,7 +652,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cx",center_x+3)
 			.attr("cy",center_y-5)
 			.attr("r",1);
-
+*/
 		// label part/////////////////////////////////////
 		countryLabels = countriesGroup
 		   .selectAll("g")

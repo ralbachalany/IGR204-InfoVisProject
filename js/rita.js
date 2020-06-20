@@ -1,15 +1,15 @@
 bound_rita = d3.select("#rita").node().getBoundingClientRect();
-const w_rita = bound_rita.width*0.9;
-const h_rita = bound_rita.height*0.9;
+const w_rita = bound_rita.width-20;
+const h_rita = bound_rita.height;
 
-let margin = {top: 100, right: 200, bottom: 0, left: 100};
+let margin = {top: 50, right: 150, bottom: 30, left: 120};
 
 let dataset = [];
 let keys = [];
 let x = [];
 let y = [];
 let z = [];
-let legend = [];
+//let legend = [];
 
 let svg_rita = d3.select("#rita").append("svg").attr("width", w_rita).attr("height", h_rita);
 let div = d3.select("body").append("div").attr("class", "tooltip")
@@ -65,14 +65,14 @@ d3.csv("data/TimeUse.csv").row( (d, i, columns) => {
 
     keys = rows.columns.slice(4);
 
-    legend[0] = keys.slice(0,5);
-    legend[1] = keys.slice(5,10);
-    legend[2] = keys.slice(10,15);
-    legend[3] = keys.slice(15,20);
+    // legend[0] = keys.slice(0,5);
+    // legend[1] = keys.slice(5,10);
+    // legend[2] = keys.slice(10,15);
+    // legend[3] = keys.slice(15,20);
 
     y = d3.scaleBand()
-    .rangeRound([margin.top, h_rita])
-    .paddingInner(0.2);
+    .rangeRound([margin.top, h_rita-margin.bottom])
+    .paddingInner(0.1);
 
     x = d3.scaleLinear()
     .rangeRound([margin.left, w_rita-margin.right]);
@@ -172,7 +172,7 @@ function draw() {
       .call(d3.axisTop(d3.scaleLinear().rangeRound([margin.left, w_rita-margin.right]).domain([0,48])).ticks(24))
       .call(g => g.selectAll(".domain").remove());
 
-    var j = 10;
+    /*var j = 10;
     legend.forEach(l => {
       svg_rita.selectAll("circles")
         .data(l)
@@ -196,5 +196,5 @@ function draw() {
           .style("font-size", 10)
 
       j = j + 15;
-    });
+    });*/
 }

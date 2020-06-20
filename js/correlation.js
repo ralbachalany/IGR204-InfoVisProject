@@ -36,16 +36,16 @@ d3.csv("/data/correlation.csv", function(error, rows) {
     });
 
     var margin = {
-      top: 0,
-      right: 40,
-      bottom: 25,
+      top: 50,
+      right: 20,
+      bottom: 0,
       left: 0
     },
     bound = d3.select("#correlation").node().getBoundingClientRect();
     svg_width = bound.width,
     svg_height = bound.height,
-    width = svg_width*0.75,
-    height = (svg_height-label_length)*0.90,
+    width = svg_width*0.8,
+    height = (svg_height-label_length)*0.7,
     domainX = d3.set(data.map(function(d) {
         return d.x
     })).values(),
@@ -202,12 +202,13 @@ d3.csv("/data/correlation.csv", function(error, rows) {
 
     var yA = d3.axisRight()
       .scale(aS)
-      .tickPadding(10);
+      .tickPadding(7)
 
     var aG = svg.append("g")
       .attr("class","y axis")
       .call(yA)
       .attr("transform", "translate(" + (label_length+width + margin.right / 2) + " ,"+label_length+")")
+      //.attr("transform", "translate(-30,125) rotate(-90)")
 
     var iR = d3.range(-1, 1.01, 0.01);
     var h = height/ iR.length +3;
@@ -215,7 +216,7 @@ d3.csv("/data/correlation.csv", function(error, rows) {
       aG.append('rect')
         .style('fill',color(d))
         .style('stroke-width',0)
-        .style('stoke','none')
+        .style('stroke','none')
         .attr('height', h)
         .attr('width', 10)
         .attr('x',0)

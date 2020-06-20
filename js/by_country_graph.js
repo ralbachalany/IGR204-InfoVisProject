@@ -10,7 +10,7 @@ let svg = d3.select("#by_country")
     .attr("width", width_by_country)
     .attr("height", height_by_country)
   .append("g")
-    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ")");
+    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(1.8,1.8)")
 
 function convertStringToMinutes(string){
   return parseInt(string.slice(0,2))*60 + parseInt(string.slice(3,5));
@@ -55,7 +55,7 @@ function getPieChartByCountry(country){
 
         let dataTest = pie(d3.entries(data));
 
-        let arc = d3.arc().innerRadius(radius*0.3)
+        let arc = d3.arc().innerRadius(radius*0.4)
                           .outerRadius(radius*0.8);
 
         let outerArc = d3.arc().innerRadius(radius * 1)
@@ -79,7 +79,7 @@ function getPieChartByCountry(country){
           .attr("d", arc)
           .attr("fill", function(d) { return(z(d.data.key)) })
           .attr("stroke", "white")
-          .style("stroke-width", "2px")
+          .style("stroke-width", 0.5)
           .style("opacity", 1);
 
         slices
@@ -94,7 +94,7 @@ function getPieChartByCountry(country){
           .duration(1000)
           .attr("stroke", "black")
           .style("fill", "none")
-          .attr("stroke-width", 1)
+          .attr("stroke-width", 0.5)
           .attr("points", function(d) {
               var posA = arc.centroid(d);
               var posB = outerArc.centroid(d);
@@ -126,7 +126,7 @@ function getPieChartByCountry(country){
             return (midAngle < Math.PI ? "start" : "end");
           })
           .style("font-family", "sans serif")
-          .style("font-size", 10);
+          .style("font-size", 10)
 
           labels
             .exit()
