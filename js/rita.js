@@ -18,7 +18,7 @@ let div = d3.select("body").append("div").attr("class", "tooltip")
 .style("visibility", "hidden")
 .style("background-color", "black")
 .style("color", "white")
-.style("padding", "20px")
+.style("padding", "15px")
 .style("border-radius", "10px")
 .style("border","0px solid black")
 .style("opacity", 0.8)
@@ -38,7 +38,7 @@ function convertToTimeString(m) {
   var rhours = Math.floor(hours);
   var minutes = (hours - rhours) * 60;
   var rminutes = Math.round(minutes);
-  return (rhours < 10 ? "0" + rhours : rhours) + ":" + (rminutes < 10 ? "0" + rminutes : rminutes);
+  return (rhours < 10 ? "0" + rhours : rhours) + " h " + (rminutes < 10 ? "0" + rminutes + " min": rminutes + " min");
 }
 
 d3.csv("data/TimeUse.csv").row( (d, i, columns) => {
@@ -111,8 +111,9 @@ function draw() {
       })
       .on("mouseover", function(d) {
         var key = d3.select(this.parentNode).datum().key;
-        div.html(d.data.Country.toUpperCase() + "<br>" + d.data.Sex + "<br>-<br>" + key + ": " + convertToTimeString(d.data[key]) + "<br>" + "Happiness level: " + d.data.Happiness)
+        div.html(d.data.Country.toUpperCase() + "<br>" + d.data.Sex + "<br>" + key + ": " + convertToTimeString(d.data[key]) + "<br>" + "Happiness level: " + d.data.Happiness+"/10")
         .style("visibility", "visible")
+        .style("font-size",12)
         .style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
       })
       .on("mouseout", function(d) {

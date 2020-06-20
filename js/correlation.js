@@ -236,5 +236,6 @@ d3.csv("data/correlation.csv", function(error, rows) {
     var tool_text = tooltip.append("text")
       .attr("transform", "translate(25,12.5)")
 	  .attr("alignment-baseline", "middle")
-      .style("fill","white");
+      .style("fill","white")
+      .style("font-size",12);
 });

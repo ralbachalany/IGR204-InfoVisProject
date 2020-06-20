@@ -712,10 +712,10 @@ d3.json("./data/custom.geo.json",function(json) {
 			d3.selectAll(".happiness").attr("y",e.pageY - 60);
 			d3.selectAll(".GDPLabel").attr("x",e.pageX + 15);
 			d3.selectAll(".GDPLabel").attr("y",e.pageY - 45);
-			d3.selectAll(".URLabel").attr("x",e.pageX + 15);
-			d3.selectAll(".URLabel").attr("y",e.pageY - 30);
 			d3.selectAll(".PDLabel").attr("x",e.pageX + 15);
-			d3.selectAll(".PDLabel").attr("y",e.pageY - 15);
+			d3.selectAll(".PDLabel").attr("y",e.pageY - 30);
+			d3.selectAll(".URLabel").attr("x",e.pageX + 15);
+			d3.selectAll(".URLabel").attr("y",e.pageY - 15);
 
 			});
 
@@ -754,23 +754,8 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		if (d.properties.iso_a2!="ZZ"){
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "GDP: "+data2[indice].GDP;}
+		   		return "GDP per capita: "+data2[indice].GDP;}
 		   		else{return "GDP";}
-		   		})
-		   .style("fill",'white')
-		   .style("font-size",12)
-		   .call(getTextBox);
-
-		   countryLabels
-		   .append("text")
-		   .attr("class", "URLabel")
-		   .text(function(d) {
-		   		let iso = d.properties.iso_a2;
-		   		if (d.properties.iso_a2!="ZZ"){
-		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
-		   		var indice = Number(array.indexOf(iso));
-		   		return "Unemployment: "+data2[indice].Unemployment + "%";}
-		   		else{return "Unemployment";}
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -791,7 +776,20 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .style("font-size",12)
 		   .call(getTextBox);
 
-
+		   countryLabels
+		   .append("text")
+		   .attr("class", "URLabel")
+		   .text(function(d) {
+		   		let iso = d.properties.iso_a2;
+		   		if (d.properties.iso_a2!="ZZ"){
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		return "Unemployment: "+data2[indice].Unemployment + "%";}
+		   		else{return "Unemployment";}
+		   		})
+		   .style("fill",'white')
+		   .style("font-size",12)
+		   .call(getTextBox);
 		});
 
 	});
