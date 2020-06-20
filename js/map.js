@@ -104,6 +104,42 @@ var updateColorLegend = function(min,max) {
   });
 }
 
+var updateColorLegendGDP = function(min,max) {
+	d3.selectAll("#map_legend > svg > *").remove();
+  var color = d3.scaleLinear()
+	.domain([min,max])
+	.range([0,180]);
+
+  var getColor = function(d) {
+		   return 'hsl('+color(d)+',100%,65%)';}
+
+  var aS = d3.scaleLinear()
+	.range([0, 120])
+	.domain([min, max]);
+
+  var yA = d3.axisRight()
+	.scale(aS)
+	.tickPadding(8);
+
+  var aG = legend_map.append("g")
+	.attr("class","y-axis")
+	.attr("height",120)
+	.attr("transform","translate(10,10)")
+	.call(yA);
+
+  var iR = d3.range(min, max, (max - min)/120);
+  iR.forEach(function(d){
+	aG.append('rect')
+	  .style('fill', getColor(d))
+	  .style('stroke-width',0)
+	  .style('stroke','none')
+	  .attr('height', 2)
+	  .attr('width', 10)
+	  .attr('x',0)
+	  .attr('y', aS(d))
+  });
+}
+
 // get map data
 d3.json("./data/custom.geo.json",function(json) {
 
@@ -173,7 +209,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			var min = d3.min(data2, function(d) { return +d.GDP; });
 			var color_scale = d3.scaleLinear()
 			.domain([min,max])
-			.range([0,120]);
+			.range([0,180]);
 
 			d3.selectAll(".country")
 			.style("fill", function(d){
@@ -183,7 +219,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let tempH = color_scale(data2[indice].GDP);
 		   		return 'hsl('+tempH+',100%,65%)';
 			})
-			updateColorLegend(min,max);
+			updateColorLegendGDP(min,max);
 
 		}
     else if (radioValue()=="Unemployment"){
@@ -837,8 +873,8 @@ function updateColor(){
 	  var min = d3.min(data2, function(d) { return +d.GDP; });
 	  var color_scale = d3.scaleLinear()
 	  .domain([min,max])
-	  .range([0,120]);
-	  updateColorLegend(min,max);
+	  .range([0,180]);
+	  updateColorLegendGDP(min,max);
 	  console.log(min);
 	  console.log(max);
 
@@ -875,7 +911,7 @@ function updateColor(){
 	  var color_scale = d3.scaleLinear()
 	  .domain([min,max])
 	  .range([0,120]);
-	  updateColorLegend(min,max);
+	  updateColorLegend(max,min);
 	  console.log(min);
 	  console.log(max);
 
