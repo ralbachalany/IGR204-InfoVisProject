@@ -162,8 +162,8 @@ d3.json("./data/custom.geo.json",function(json) {
 		   })
 		;
 		d3.selectAll(".countryNull").style("fill",'white');
-		d3.selectAll(".countryNull").style("stroke",'black');
-		d3.selectAll(".countryNull").style("stroke-width",0.8);
+		d3.selectAll(".countryNull").style("stroke",'lightslategray');
+		d3.selectAll(".countryNull").style("stroke-width",0.5);
 
 		//Color//////////////////////////
 		d3.csv("./data/factbook.csv",function(data2){
