@@ -1,13 +1,14 @@
 d3.csv("data/correlation.csv", function(error, rows) {
     var data = [];
-    var label_length = 100;
+    var label_y_length = 100;
+    var label_x_length = 70;
     for(attribute in rows[0]){
       var y = attribute;
       data.push({
         x:"",
         y:y,
         value:0,
-        add_width:label_length,
+        add_width:label_x_length,
         add_height:0
       })
     }
@@ -20,7 +21,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
         y:"",
         value:0,
         add_width:0,
-        add_height:label_length
+        add_height:label_y_length
       });
       for(attribute in d) {
         var y = attribute,
@@ -36,16 +37,16 @@ d3.csv("data/correlation.csv", function(error, rows) {
     });
 
     var margin = {
-      top: 30,
-      right: 40,
-      bottom: 25,
-      left: 0
+      top: 80,
+      right: 33,
+      bottom: 30,
+      left: 45
     },
     bound = d3.select("#correlation").node().getBoundingClientRect();
     svg_width = bound.width,
     svg_height = bound.height,
-    width = svg_width*0.74,
-    height = (svg_height-label_length)*0.68,
+    width = svg_width-margin.right-margin.left,
+    height = svg_height-margin.top-margin.bottom,
     domainX = d3.set(data.map(function(d) {
         return d.x
     })).values(),
@@ -60,13 +61,13 @@ d3.csv("data/correlation.csv", function(error, rows) {
     domainY.unshift("");
 
     var x = d3.scalePoint()
-      .range([0, width-width/domainX.length])
+      .range([margin.left, width-margin.right-width/domainX.length])
       .domain(domainX),
     y = d3.scalePoint()
-      .range([0, height-height/domainY.length])
+      .range([margin.top, height-margin.bottom-height/domainY.length])
       .domain(domainY),
-    xSpace = 32,
-    ySpace = 32;
+    xSpace = width/domainX.length,
+    ySpace = height/domainY.length;
 
     var svg = d3.select("#correlation")
       .append("svg")
@@ -81,11 +82,11 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .append("g")
       .attr("class", "cor")
       .attr("transform", function(d) {
-        return "translate(" + (x(d.x)+xSpace/2+label_length-d.add_width) + "," + (y(d.y)+ySpace/2+label_length-d.add_height) + ")";
+        return "translate(" + (x(d.x)+xSpace/2-d.add_width) + "," + (y(d.y)+ySpace/2-d.add_height) + ")";
       });
-
-    var rect_border = 8;
-    var rect_radius = 4;
+    console.debug("test : "+Math.min(xSpace,ySpace));
+    var rect_border = 10;
+    var rect_radius = 3;
 
     var color_label = d3.scaleOrdinal()
     .range(["#cedbd8","#a9c5fd", "#fbfd52", "#fda899", "#06f6a4", "#f9dc56",
@@ -100,15 +101,17 @@ d3.csv("data/correlation.csv", function(error, rows) {
           })
         .append("rect")
         .attr("width", function(d){
-          return xSpace-rect_border+d.add_width;
+          return Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width);
         })
         .attr("height", function(d){
-          return ySpace-rect_border+d.add_height;
+          return Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height);
         })
         .attr("rx",4)
         .attr("ry",4)
         .attr("x", rect_border/2 -xSpace / 2)
-        .attr("y", rect_border/2 -ySpace / 2);
+        .attr("y", function(d){
+          return -Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height) / 2
+        })
 
       cor.filter(function(d){
             if((d.x!="")&&(d.y=="")) return true;
@@ -117,17 +120,19 @@ d3.csv("data/correlation.csv", function(error, rows) {
         .append("rect")
         .style('stroke-width',0)
         .attr("width", function(d){
-          return xSpace-rect_border+d.add_width;
+          return Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width);
         })
         .attr("height", function(d){
-          return ySpace-rect_border+d.add_height;
+          return Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height);
         })
         .style("fill",function(d){
           return color_label(d.x);
         })
         .attr("rx",rect_radius)
         .attr("ry",rect_radius)
-        .attr("x", rect_border/2 -xSpace / 2)
+        .attr("x", function(d){
+          return -Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width) / 2
+        })
         .attr("y", rect_border/2 -ySpace / 2);
 
       cor.filter(function(d){
@@ -136,18 +141,22 @@ d3.csv("data/correlation.csv", function(error, rows) {
             })
           .append("rect")
           .attr("width", function(d){
-            return xSpace-rect_border+d.add_width;
+            return Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width);
           })
           .attr("height", function(d){
-            return ySpace-rect_border+d.add_height;
+            return Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height);
           })
           .attr("rx",rect_radius)
           .attr("ry",rect_radius)
-          .attr("x", rect_border/2 -xSpace / 2)
-          .attr("y", rect_border/2 -ySpace / 2)
+          .attr("x", function(d){
+            return -Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width) / 2
+          })
+          .attr("y", function(d){
+            return -Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height) / 2
+          })
           .on("mouseenter",function(d){
             tooltip.style("opacity",0.8)
-              .attr("transform", "translate(" + (x(d.x)+label_length+xSpace) + " ,"+(y(d.y)+label_length-10)+")");
+              .attr("transform", "translate(" + (x(d.x)+label_x_length+xSpace) + " ,"+(y(d.y)+label_y_length-10)+")");
             tool_text.text(d.value.toFixed(3));
           })
           .on("mouseout",function(d){
@@ -176,7 +185,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
                 return false;
               })
             .append("text")
-            .attr("x",label_length/2)
+            .attr("x",label_x_length/2)
             .attr("y",5)
             .text(function(d){
               return d.y;
@@ -187,7 +196,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
                   return false;
               })
             .append("text")
-            .attr("x",-label_length/2)
+            .attr("x",-label_y_length/2)
             .attr("y",5)
             .text(function(d){
               return d.x;
@@ -195,7 +204,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
             .attr("transform","rotate(-90)");
 
     var aS = d3.scaleLinear()
-      .range([35, height])
+      .range([0, svg_height-label_y_length-margin.top-margin.bottom-ySpace])
       .domain([1, -1]);
 
     var yA = d3.axisRight()
@@ -206,7 +215,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .attr("class","y axis")
       .call(yA)
       // .attr("transform", "translate(" + (label_length+width + margin.right / 2) + " ,"+label_length+")")
-      .attr("transform", "translate(" + (label_length+width + 10) + " ,"+label_length+")");
+      .attr("transform", "translate(" + (svg_width-label_x_length-margin.left+20) + " ,"+(margin.top+xSpace)+")");
 
     var iR = d3.range(-1, 1.01, 0.01);
     var h = height/ iR.length +3;
