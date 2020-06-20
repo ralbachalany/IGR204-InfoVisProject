@@ -103,6 +103,41 @@ var updateColorLegend = function(min,max) {
   });
 }
 
+var updateColorLegendGDP = function(min,max) {
+	d3.selectAll("#legend > svg > *").remove();
+  var color = d3.scaleLinear()
+	.domain([min,max])
+	.range([0,180]);
+
+  var getColor = function(d) {
+		   return 'hsl('+color(d)+',100%,50%)';}
+
+  var aS = d3.scaleLinear()
+	.range([0, 120])
+	.domain([min, max]);
+
+  var yA = d3.axisRight()
+	.scale(aS)
+	.tickPadding(10);
+
+  var aG = legend_map.append("g")
+	.attr("class","y axis")
+	.attr("transform","translate(10,10)")
+	.call(yA);
+
+  var iR = d3.range(min, max, (max - min)/160);
+  iR.forEach(function(d){
+	aG.append('rect')
+	  .style('fill', getColor(d))
+	  .style('stroke-width',0)
+	  .style('stoke','none')
+	  .attr('height', 3)
+	  .attr('width', 10)
+	  .attr('x',0)
+	  .attr('y', aS(d))
+  });
+}
+
 // get map data
 d3.json("./data/custom.geo.json",function(json) {
 
@@ -172,7 +207,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			var min = d3.min(data2, function(d) { return +d.GDP; });
 			var color_scale = d3.scaleLinear()
 			.domain([min,max])
-			.range([0,120]);
+			.range([0,180]);
 
 			d3.selectAll(".country")
 			.style("fill", function(d){
@@ -182,7 +217,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let tempH = color_scale(data2[indice].GDP);
 		   		return 'hsl('+tempH+',100%,50%)';
 			})
-			updateColorLegend(min,max);
+			updateColorLegendGDP(min,max);
 
 		}
     else if (radioValue()=="Unemployment"){
@@ -682,7 +717,10 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .append("g")
 		   .attr("class", "countryLabel")
 		   .attr("id", function(d) {
-		      return "countryLabel" + d.properties.iso_a2;
+		   		if(d.properties.iso_a2!="ZZ"){
+		      	return "countryLabel" + d.properties.iso_a2;}
+		      	else{
+		      	return "countryLabel" + d.properties.iso_a3;}
 		   });
 
 		countryLabels.append("rect")
@@ -690,10 +728,13 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("width", 180)
 			.attr("height", 100)
 			.style("fill", "black")
-			.style("opacity",0.8)
-			.style("rx",10)
+			.style("opacity",0.85)
+			.attr("rx",10)
 			.attr("id", function(d) {
-				return "countryBg" + d.properties.iso_a2;
+				if(d.properties.iso_a2!="ZZ"){
+		      	return "countryBg" + d.properties.iso_a2;}
+		      	else{
+		      	return "countryBg" + d.properties.iso_a3;}
 			});
 
 		window.addEventListener('mousemove', e => {
@@ -832,8 +873,8 @@ function updateColor(){
 	  var min = d3.min(data2, function(d) { return +d.GDP; });
 	  var color_scale = d3.scaleLinear()
 	  .domain([min,max])
-	  .range([0,120]);
-	  updateColorLegend(min,max);
+	  .range([0,180]);
+	  updateColorLegendGDP(min,max);
 	  console.log(min);
 	  console.log(max);
 
