@@ -1,7 +1,7 @@
 bound_by_country = d3.select("#by_country").node().getBoundingClientRect();
 const width_by_country = bound_by_country.width;
 const height_by_country = bound_by_country.height;
-const margin_by_country = 110;
+const margin_by_country = 50;
 
 let radius = Math.min(width_by_country, height_by_country) / 2 - margin_by_country;
 
@@ -55,11 +55,11 @@ function getPieChartByCountry(country){
 
         let dataTest = pie(d3.entries(data));
 
-        let arc = d3.arc().innerRadius(radius*0.35)
-                          .outerRadius(radius*0.65);
+        let arc = d3.arc().innerRadius(radius*0.4)
+                          .outerRadius(radius*0.7);
 
-        let outerArc = d3.arc().innerRadius(radius * 0.75)
-                              .outerRadius(radius * 0.75);
+        let outerArc = d3.arc().innerRadius(radius * 0.9)
+                              .outerRadius(radius * 0.9);
 
         let slices = svg.selectAll("path")
                         .data(dataTest);
@@ -86,6 +86,7 @@ function getPieChartByCountry(country){
           .exit()
           .remove();
 
+        /*
         polylines
           .enter()
           .append("polyline")
@@ -131,6 +132,7 @@ function getPieChartByCountry(country){
           labels
             .exit()
             .remove();
+        */
 
       }
 
@@ -149,5 +151,3 @@ function getPieChartByCountry(country){
   });
 
 }
-
-getPieChartByCountry("Belgium");

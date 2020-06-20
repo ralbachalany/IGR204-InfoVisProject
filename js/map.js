@@ -141,7 +141,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		      d3.select("#countryLabel" + d.properties.iso_a2).style("display", "none");
 		   })
 		   .on("click", function(d, i) {
-			   getPieChartByCountry("France");
+			   getPieChartByCountry(d.properties.sovereignt);
 		   })
 		;
 		d3.selectAll(".country").style("fill",'white');
@@ -765,7 +765,7 @@ d3.json("./data/custom.geo.json",function(json) {
 });
 
 function conversor(d){
-    d.Mean = +d.Mean;
+	d.Mean = +d.Mean;
     return d;
 }
 
