@@ -8,14 +8,22 @@ body {
 
 #container {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
   height: 100%;
 }
 
-#map, #correlation, #rita, #by_country {
-  width: 45%;
-  height: 50%;
+#map, #by_country{
+  width: 25%;
+  height: 100%;
+  border: solid;
+  position: relative;
+}
+
+#correlation, #rita {
+  width: 50%;
+  height: 45%;
   border: solid;
   position: relative;
 }

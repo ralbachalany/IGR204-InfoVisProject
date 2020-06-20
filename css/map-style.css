@@ -1,6 +1,12 @@
 #map-holder {
   width: 100vw;
   height: 100vh;
+  position: absolute;
+  z-index: 0;
+}
+
+#legend, #smiley_legend{
+  position: absolute;
 }
 
 .country{

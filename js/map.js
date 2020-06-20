@@ -1,6 +1,6 @@
 // DEFINE VARIABLES
 // Define size of map group
-bound_map = d3.select("#map").node().getBoundingClientRect();
+bound_map = d3.select("#container").node().getBoundingClientRect();
 w_map = bound_map.width;
 h_map = bound_map.height;
 
@@ -29,8 +29,8 @@ var svg_map = d3
   .select("#map-holder")
   .append("svg")
   // set to the same size as the "map-holder" div
-  .attr("width", $("#map-holder").width())
-  .attr("height", $("#map-holder").height());
+  .attr("width", $("#container").width())
+  .attr("height", $("#container").height());
 
 var max
 
@@ -103,12 +103,12 @@ d3.json("./data/custom.geo.json",function(json) {
 
 
 
-	  var tooltip = svg
+	  var tooltip = svg_map
 		.append("g")
 		.style("opacity", 0);
 
 
-	    countriesGroup = svg
+	    countriesGroup = svg_map
 	   	.append("g")
 	   	.attr("id", "map")
 		;
@@ -119,6 +119,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .attr("y", 0)
 		   .attr("width", w_map)
 		   .attr("height", h_map)
+       .style("fill","#4C8FCA")
 		;
 
 		// draw a path for each feature/country
