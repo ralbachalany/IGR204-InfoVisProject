@@ -93,16 +93,13 @@ var updateColorLegend = function(min,max) {
   });
 }
 
+
+
 // get map data
 d3.json("./data/custom.geo.json",function(json) {
 
   	d3.csv("./data/happiness.csv",conversor,function(data){
-
-	
-	
-	
-	  
-	  var tooltip = svg
+	  	var tooltip = svg
 		.append("g")
 		.style("opacity", 0);
 
@@ -119,7 +116,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .attr("width", w)
 		   .attr("height", h)
 		;
-
+		
 		// draw a path for each feature/country
 		countries = countriesGroup
 		   .selectAll("path")
@@ -128,22 +125,35 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .append("path")
 		   .attr("d", path)
 		   .attr("id", function(d, i) {
-		      return "country" + d.properties.iso_a2;
+		   		if (d.properties.iso_a2 == "ZZ"){
+		   			return "countryNull"+d.properties.iso_a3;
+		   		}else{
+		      	return "country" + d.properties.iso_a2;}
 		   })
-		   .attr("class", "country")
+		   .attr("class", function(d, i) {
+		   		if (d.properties.iso_a2 == "ZZ"){
+		   			return "countryNull";
+		   		}else{
+		      	return "country";}
+		   })
 		   // add a mouseover action to show name label for feature/country
 		   .on("mouseover", function(d, i) {
-		      //d3.select(this).style("opacity", 0.35);
-		      animate(d3.select(this));
-		      d3.select("#countryLabel" + d.properties.iso_a2).style("display", "block");
+		   	  if (d.properties.iso_a2 != "ZZ"){
+		      	animate(d3.select(this));
+		      	d3.select("#countryLabel" + d.properties.iso_a2).style("display", "block");}
 		   })
 		   .on("mouseout", function(d, i) {
-		   	clearInterval(id);
-		      d3.select(this).style("opacity", 1);
-		      d3.select("#countryLabel" + d.properties.iso_a2).style("display", "none");
+		   		if (d.properties.iso_a2 != "ZZ"){
+		   			clearInterval(id);
+		      		d3.select(this).style("opacity", 1);
+		      		d3.select("#countryLabel" + d.properties.iso_a2).style("display", "none");}
 		   })
 		;
-		d3.selectAll(".country").style("fill",'white');
+		d3.selectAll(".countryNull").style("fill",'white');
+		d3.selectAll(".countryNull").style("stroke",'black');
+		d3.selectAll(".countryNull").style("stroke-width",0.8);
+
+
 
 		//Color//////////////////////////
 		d3.csv("./data/factbook.csv",function(data2){
@@ -710,9 +720,13 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .attr("class", "happiness")
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
+		   		if (d.properties.iso_a2!="ZZ"){
 		   		let array = d3.map(data, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "Happiness: "+ data[3*indice+2].Mean +"/10";
+		   		return "Happiness: "+ data[3*indice+2].Mean +"/10";}
+		   		else{
+		   			return "Happiness:";
+		   		}
 		   })
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -723,9 +737,11 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .attr("class", "GDPLabel")
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
+		   		if (d.properties.iso_a2!="ZZ"){
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "GDP: "+data2[indice].GDP;
+		   		return "GDP: "+data2[indice].GDP;}
+		   		else{return "GDP"};
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -736,9 +752,11 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .attr("class", "URLabel")
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
+		   		if (d.properties.iso_a2!="ZZ"){
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "Unemployment: "+data2[indice].Unemployment + "%";
+		   		return "Unemployment: "+data2[indice].Unemployment + "%";}
+		   		else{return "Unemployment";}
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -749,9 +767,11 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .attr("class", "PDLabel")
 		   .text(function(d) {
 		   		let iso = d.properties.iso_a2;
+		   		if (d.properties.iso_a2!="ZZ"){
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "Public debt: "+data2[indice].Public_debt +"% of GDP";
+		   		return "Public debt: "+data2[indice].Public_debt +"% of GDP";}
+		   		else{return "Public debt";}
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
