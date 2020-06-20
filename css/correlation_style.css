@@ -7,7 +7,11 @@
 
 #correlation rect {
   stroke: lightgray;
-  fill: none;
+  fill: white;
+}
+
+#correlation circle {
+  pointer-events: none;
 }
 
 #correlation .y.axis path{

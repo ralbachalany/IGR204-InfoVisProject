@@ -36,16 +36,16 @@ d3.csv("/data/correlation.csv", function(error, rows) {
     });
 
     var margin = {
-      top: 50,
-      right: 20,
-      bottom: 0,
+      top: 0,
+      right: 40,
+      bottom: 25,
       left: 0
     },
     bound = d3.select("#correlation").node().getBoundingClientRect();
     svg_width = bound.width,
     svg_height = bound.height,
-    width = svg_width*0.8,
-    height = (svg_height-label_length)*0.7,
+    width = svg_width*0.75,
+    height = (svg_height-label_length)*0.90,
     domainX = d3.set(data.map(function(d) {
         return d.x
     })).values(),
@@ -94,23 +94,6 @@ d3.csv("/data/correlation.csv", function(error, rows) {
             "#d3fe94", "#ffba6e", "#c7ecf9", "#72dbf2"])
     .domain(domainX);
 
-    cor.filter(function(d){
-        if(d.x=="") return false;
-        return true;
-      })
-      .append("circle")
-      .attr("r", function(d){
-        rayon = Math.min(xSpace-15,ySpace-15)*Math.abs(d.value) + 0.1;
-        return rayon
-      })
-      .style("fill", function(d){
-        if(d.value ===1){
-          return "#000";
-        } else{
-          return color(d.value)
-        }
-      });
-
       cor.filter(function(d){
             if((d.x=="")&&(d.y!="")) return true;
             return false;
@@ -152,8 +135,6 @@ d3.csv("/data/correlation.csv", function(error, rows) {
               return false;
             })
           .append("rect")
-          .style("fill","white")
-          .style("fill-opacity","0")
           .attr("width", function(d){
             return xSpace-rect_border+d.add_width;
           })
@@ -172,6 +153,23 @@ d3.csv("/data/correlation.csv", function(error, rows) {
           .on("mouseout",function(d){
             tooltip.style("opacity",0);
           });
+
+      cor.filter(function(d){
+              if(d.x=="") return false;
+              return true;
+            })
+            .append("circle")
+            .attr("r", function(d){
+              rayon = Math.min(xSpace-15,ySpace-15)*Math.abs(d.value) + 0.1;
+              return rayon
+            })
+            .style("fill", function(d){
+              if(d.value ===1){
+                return "#000";
+              } else{
+                return color(d.value)
+              }
+            });
 
       cor.filter(function(d){
                 if((d.x=="")&&(d.y!="")) return true;
@@ -202,13 +200,12 @@ d3.csv("/data/correlation.csv", function(error, rows) {
 
     var yA = d3.axisRight()
       .scale(aS)
-      .tickPadding(7)
+      .tickPadding(10);
 
     var aG = svg.append("g")
       .attr("class","y axis")
       .call(yA)
       .attr("transform", "translate(" + (label_length+width + margin.right / 2) + " ,"+label_length+")")
-      //.attr("transform", "translate(-30,125) rotate(-90)")
 
     var iR = d3.range(-1, 1.01, 0.01);
     var h = height/ iR.length +3;
@@ -216,7 +213,7 @@ d3.csv("/data/correlation.csv", function(error, rows) {
       aG.append('rect')
         .style('fill',color(d))
         .style('stroke-width',0)
-        .style('stroke','none')
+        .style('stoke','none')
         .attr('height', h)
         .attr('width', 10)
         .attr('x',0)
