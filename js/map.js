@@ -43,7 +43,7 @@ var svg_map = d3
 var max
 
 //var legend_map = d3.select("#legend").append("svg").attr("width",$("#legend").width()).attr("height", $("#legend").height());
-var legend_map = d3.select("#legend").append("svg");
+var legend_map = d3.select("#map_legend").append("svg");
 var smiley_legend = d3.select("#smiley_legend").append("svg");
 var smileys = [6,6.5,7,7.5,8,8.5];
 var scale_legend = d3.scaleLinear()
@@ -69,13 +69,13 @@ smileys.forEach(d => {
 });
 
 var updateColorLegend = function(min,max) {
-	d3.selectAll("#legend > svg > *").remove();
+	d3.selectAll("#map_legend > svg > *").remove();
   var color = d3.scaleLinear()
 	.domain([min,max])
 	.range([0,120]);
 
   var getColor = function(d) {
-		   return 'hsl('+color(d)+',100%,50%)';}
+		   return 'hsl('+color(d)+',100%,65%)';}
 
   var aS = d3.scaleLinear()
 	.range([0, 120])
@@ -83,55 +83,21 @@ var updateColorLegend = function(min,max) {
 
   var yA = d3.axisRight()
 	.scale(aS)
-	.tickPadding(10);
+	.tickPadding(8);
 
   var aG = legend_map.append("g")
-	.attr("class","y axis")
+	.attr("class","y-axis")
+	.attr("height",120)
 	.attr("transform","translate(10,10)")
 	.call(yA);
 
-  var iR = d3.range(min, max, (max - min)/100);
+  var iR = d3.range(min, max, (max - min)/120);
   iR.forEach(function(d){
 	aG.append('rect')
 	  .style('fill', getColor(d))
 	  .style('stroke-width',0)
-	  .style('stoke','none')
-	  .attr('height', 3)
-	  .attr('width', 10)
-	  .attr('x',0)
-	  .attr('y', aS(d))
-  });
-}
-
-var updateColorLegendGDP = function(min,max) {
-	d3.selectAll("#legend > svg > *").remove();
-  var color = d3.scaleLinear()
-	.domain([min,max])
-	.range([0,180]);
-
-  var getColor = function(d) {
-		   return 'hsl('+color(d)+',100%,50%)';}
-
-  var aS = d3.scaleLinear()
-	.range([0, 120])
-	.domain([min, max]);
-
-  var yA = d3.axisRight()
-	.scale(aS)
-	.tickPadding(10);
-
-  var aG = legend_map.append("g")
-	.attr("class","y axis")
-	.attr("transform","translate(10,10)")
-	.call(yA);
-
-  var iR = d3.range(min, max, (max - min)/160);
-  iR.forEach(function(d){
-	aG.append('rect')
-	  .style('fill', getColor(d))
-	  .style('stroke-width',0)
-	  .style('stoke','none')
-	  .attr('height', 3)
+	  .style('stroke','none')
+	  .attr('height', 2)
 	  .attr('width', 10)
 	  .attr('x',0)
 	  .attr('y', aS(d))
@@ -196,8 +162,8 @@ d3.json("./data/custom.geo.json",function(json) {
 		   })
 		;
 		d3.selectAll(".countryNull").style("fill",'white');
-		d3.selectAll(".countryNull").style("stroke",'black');
-		d3.selectAll(".countryNull").style("stroke-width",0.8);
+		d3.selectAll(".countryNull").style("stroke",'lightslategray');
+		d3.selectAll(".countryNull").style("stroke-width",0.5);
 
 		//Color//////////////////////////
 		d3.csv("./data/factbook.csv",function(data2){
@@ -207,7 +173,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			var min = d3.min(data2, function(d) { return +d.GDP; });
 			var color_scale = d3.scaleLinear()
 			.domain([min,max])
-			.range([0,180]);
+			.range([0,120]);
 
 			d3.selectAll(".country")
 			.style("fill", function(d){
@@ -215,9 +181,9 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
 		   		let tempH = color_scale(data2[indice].GDP);
-		   		return 'hsl('+tempH+',100%,50%)';
+		   		return 'hsl('+tempH+',100%,65%)';
 			})
-			updateColorLegendGDP(min,max);
+			updateColorLegend(min,max);
 
 		}
     else if (radioValue()=="Unemployment"){
@@ -233,7 +199,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
 		   		let tempH = color_scale(max - data2[indice].Unemployment);
-		   		return 'hsl('+tempH+',100%,50%)';
+		   		return 'hsl('+tempH+',100%,65%)';
 			});
 		}else if (radioValue()=="Public debt"){
 			max = d3.max(data2, function(d) { return +d.Public_debt; });
@@ -248,7 +214,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
 		   		let tempH = color_scale(max - data2[indice].Public_debt);
-		   		return 'hsl('+tempH+',100%,50%)';
+		   		return 'hsl('+tempH+',100%,65%)';
 			});
 		}
 		//Happiness////////////////////////////////////////////////////
@@ -746,10 +712,10 @@ d3.json("./data/custom.geo.json",function(json) {
 			d3.selectAll(".happiness").attr("y",e.pageY - 60);
 			d3.selectAll(".GDPLabel").attr("x",e.pageX + 15);
 			d3.selectAll(".GDPLabel").attr("y",e.pageY - 45);
-			d3.selectAll(".URLabel").attr("x",e.pageX + 15);
-			d3.selectAll(".URLabel").attr("y",e.pageY - 30);
 			d3.selectAll(".PDLabel").attr("x",e.pageX + 15);
-			d3.selectAll(".PDLabel").attr("y",e.pageY - 15);
+			d3.selectAll(".PDLabel").attr("y",e.pageY - 30);
+			d3.selectAll(".URLabel").attr("x",e.pageX + 15);
+			d3.selectAll(".URLabel").attr("y",e.pageY - 15);
 
 			});
 
@@ -788,23 +754,8 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		if (d.properties.iso_a2!="ZZ"){
 		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		   		var indice = Number(array.indexOf(iso));
-		   		return "GDP: "+data2[indice].GDP;}
+		   		return "GDP per capita: "+data2[indice].GDP;}
 		   		else{return "GDP";}
-		   		})
-		   .style("fill",'white')
-		   .style("font-size",12)
-		   .call(getTextBox);
-
-		   countryLabels
-		   .append("text")
-		   .attr("class", "URLabel")
-		   .text(function(d) {
-		   		let iso = d.properties.iso_a2;
-		   		if (d.properties.iso_a2!="ZZ"){
-		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
-		   		var indice = Number(array.indexOf(iso));
-		   		return "Unemployment: "+data2[indice].Unemployment + "%";}
-		   		else{return "Unemployment";}
 		   		})
 		   .style("fill",'white')
 		   .style("font-size",12)
@@ -825,7 +776,20 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .style("font-size",12)
 		   .call(getTextBox);
 
-
+		   countryLabels
+		   .append("text")
+		   .attr("class", "URLabel")
+		   .text(function(d) {
+		   		let iso = d.properties.iso_a2;
+		   		if (d.properties.iso_a2!="ZZ"){
+		   		let array = d3.map(data2, function(d){return(d.Country)}).keys();
+		   		var indice = Number(array.indexOf(iso));
+		   		return "Unemployment: "+data2[indice].Unemployment + "%";}
+		   		else{return "Unemployment";}
+		   		})
+		   .style("fill",'white')
+		   .style("font-size",12)
+		   .call(getTextBox);
 		});
 
 	});
@@ -873,8 +837,8 @@ function updateColor(){
 	  var min = d3.min(data2, function(d) { return +d.GDP; });
 	  var color_scale = d3.scaleLinear()
 	  .domain([min,max])
-	  .range([0,180]);
-	  updateColorLegendGDP(min,max);
+	  .range([0,120]);
+	  updateColorLegend(min,max);
 	  console.log(min);
 	  console.log(max);
 
@@ -884,7 +848,7 @@ function updateColor(){
 		  let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		  var indice = Number(array.indexOf(iso));
 		  let tempH = color_scale(data2[indice].GDP);
-		  return 'hsl('+tempH+',100%,50%)';
+		  return 'hsl('+tempH+',100%,65%)';
 	  });
 	}
 	else if (radioValue()=="Unemployment"){
@@ -903,7 +867,7 @@ function updateColor(){
 		  let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		  var indice = Number(array.indexOf(iso));
 		  let tempH = color_scale(max - data2[indice].Unemployment);
-		  return 'hsl('+tempH+',100%,50%)';
+		  return 'hsl('+tempH+',100%,65%)';
 	  });
 	}else if (radioValue()=="Public debt"){
 	  max = d3.max(data2, function(d) { return +d.Public_debt; });
@@ -921,7 +885,7 @@ function updateColor(){
 		  let array = d3.map(data2, function(d){return(d.Country)}).keys();
 		  var indice = Number(array.indexOf(iso));
 		  let tempH = color_scale(max - data2[indice].Public_debt);
-		  return 'hsl('+tempH+',100%,50%)';
+		  return 'hsl('+tempH+',100%,65%)';
 	  });
 	}
   });

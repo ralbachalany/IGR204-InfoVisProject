@@ -5,14 +5,14 @@
   z-index: 0;
 }
 
-#legend, #smiley_legend{
+#map_legend, #smiley_legend{
   position: absolute;
 }
 
-.country{
+.country {
   fill: white;   /* country colour */
-  stroke: #2A2C39; /* country border colour */
-  stroke-width: 1; /* country border width */
+  stroke: lightslategray; /* country border colour */
+  stroke-width: 0.5; /* country border width */
 }
 .country-on{
   fill: red;   /* highlight colour for selected country */
@@ -31,7 +31,7 @@
 #chooser{
   width: auto;
   height: auto;
-  background-color: purple;
+  background-color: darkslateblue;
   position: absolute;
   left:20px;
   top:20px;
@@ -42,7 +42,7 @@
 .grid-container {
   grid-template-rows: min min min 50px;
   grid-gap: 10px;
-  background-color: purple;
+  background-color: darkslateblue;
   display: table-cell;
   padding: 2px;
   border-radius: 10px;
@@ -67,7 +67,7 @@
   vertical-align: middle;
 }
 
-div#legend {
+div#map_legend {
   background-color: white;
   border-radius: 5px;
   max-width: 65px;
@@ -76,6 +76,7 @@ div#legend {
   top: 130px;
   left: 20px;
 }
+
 
 div#smiley_legend {
   background-color: white;
