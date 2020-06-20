@@ -1,12 +1,11 @@
 #correlation svg {
   font-size: 10;
   font-family: sans-serif;
-  fill: black;
+  fill: #292b3d;
   text-anchor: middle;
 }
 
 #correlation rect {
-  stroke: lightgray;
   fill: white;
 }
 
@@ -16,4 +15,8 @@
 
 #correlation .y.axis path{
   stroke: none;
+}
+
+.y.axis text {
+  fill: white;
 }

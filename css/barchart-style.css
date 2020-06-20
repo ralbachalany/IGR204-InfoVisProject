@@ -1,0 +1,11 @@
+.y_axis line, .x_axis line {
+    stroke:white;
+}
+
+.y_axis path, .x_axis path {
+    stroke: white;
+}
+
+.y_axis text, .x_axis text {
+    fill:white;
+}

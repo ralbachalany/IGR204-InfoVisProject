@@ -2,7 +2,7 @@ bound_rita = d3.select("#rita").node().getBoundingClientRect();
 const w_rita = bound_rita.width-20;
 const h_rita = bound_rita.height;
 
-let margin = {top: 50, right: 70, bottom: 30, left: 120};
+let margin = {top: 50, right: 70, bottom: 20, left: 120};
 
 let dataset = [];
 let keys = [];
@@ -130,15 +130,15 @@ function draw() {
       //.attr("x", w_rita - margin.right)
       .attr("x", 0)
       .attr("width", function(d) { return margin.left/10*d.Happiness; })
-      .attr("height", 1)
+      .attr("height", 2)
       .attr("transform", function(d) {
         // if(d.Sex == "Females") return "translate(0,"+0.75*y.bandwidth()+")";
         if(d.Sex == "Females") return "translate("+(margin.left+10)+","+0.75*y.bandwidth()+") scale(-1,1)";
         else if(d.Sex == "Males") return "translate("+(margin.left+10)+","+0.25*y.bandwidth()+") scale(-1,1)";
       })
       .attr("fill", function(d) {
-        if(d.Sex == "Females") return "Crimson";
-        else if(d.Sex == "Males") return "Blue";
+        if(d.Sex == "Females") return "PeachPuff";
+        else if(d.Sex == "Males") return "Aquamarine";
       });
 /*
     svg_rita.append("text")
@@ -152,9 +152,9 @@ function draw() {
         .style("font-size", 10);*/
 
     svg_rita.append("g")
-      .attr("fill", "black")
+      .attr("fill", "white")
       .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
+      .attr("font-size", 8)
       .attr("dominant-baseline", "middle")
       .attr("text-anchor","end")
     .selectAll("text")
@@ -174,11 +174,13 @@ function draw() {
     svg_rita.append("g")
       //.attr("transform", "translate("+margin.left+",0)")
       .attr("transform", "translate("+ (w_rita - margin.right + 10) +",0)")
+      .attr("class","y_axis")
       .call(d3.axisRight(y).tickSizeOuter(0))
       .call(g => g.selectAll(".domain").remove());
 
     svg_rita.append("g")
       .attr("transform", "translate(10,"+margin.top+")")
+      .attr("class","x_axis")
       .call(d3.axisTop(d3.scaleLinear().rangeRound([margin.left, w_rita-margin.right]).domain([0,48])).ticks(24))
       .call(g => g.selectAll(".domain").remove());
 
