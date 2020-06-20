@@ -4,6 +4,14 @@ bound_map = d3.select("#container").node().getBoundingClientRect();
 var w_map = bound_map.width;
 var h_map = bound_map.height;
 
+bound_map_bis = d3.select("#map").node().getBoundingClientRect();
+var w_map_bis = bound_map_bis.width;
+var h_map_bis = bound_map_bis.height;
+var offset_x = 880;
+var new_offset_x = 12;
+const scale_w = w_map_bis/(1380-offset_x);
+const scale_h = h_map_bis/820;
+var offset_y = 37;
 // Define map projection
 var projection = d3
    .geoMercator()
@@ -208,12 +216,12 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return 'hsl('+tempH+',100%,50%)';
 			});
 		}
-/*		//Happiness////////////////////////////////////////////////////
+		//Happiness////////////////////////////////////////////////////
 		var scale = d3.scaleLinear()
 			.domain([5.8,8.5])
 			.range([0,100]);
-		var center_x = 1163;
-		var center_y = 543;
+		var center_x = new_offset_x+(1163-offset_x)*scale_w;
+		var center_y = 543*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[2].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -228,8 +236,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1052;
-		center_y = 491;
+		center_x = new_offset_x+(1052-offset_x)*scale_w;
+		center_y = 491*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[5].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -244,8 +252,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1280;
-		center_y = 620;
+		center_x = new_offset_x+(1280-offset_x)*scale_w;
+		center_y = 620*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[8].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -262,8 +270,8 @@ d3.json("./data/custom.geo.json",function(json) {
 
 		// Chypre
 
-		center_x = 1165;
-		center_y = 505;
+		center_x = new_offset_x+(1165-offset_x)*scale_w;
+		center_y = 505*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[14].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -278,8 +286,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1115;
-		center_y = 480;
+		center_x = new_offset_x+(1115-offset_x)*scale_w;
+		center_y = 480*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[17].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -294,8 +302,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1101;
-		center_y = 390;
+		center_x = new_offset_x+(1101-offset_x)*scale_w;
+		center_y = 390*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[20].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -310,8 +318,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1285;
-		center_y = 335;
+		center_x = new_offset_x+(1285-offset_x)*scale_w;
+		center_y = 335*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[23].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -326,8 +334,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1240;
-		center_y = 665;
+		center_x = new_offset_x+(1240-offset_x)*scale_w;
+		center_y = 665*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[26].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -342,8 +350,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 960;
-		center_y = 660;
+		center_x = new_offset_x+(960-offset_x)*scale_w;
+		center_y = 660*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[29].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -358,8 +366,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1290;
-		center_y = 250;
+		center_x = new_offset_x+(1290-offset_x)*scale_w;
+		center_y = 250*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[32].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -374,8 +382,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1030;
-		center_y = 560;
+		center_x = new_offset_x+(1030-offset_x)*scale_w;
+		center_y = 560*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[35].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -390,8 +398,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1183;
-		center_y = 574;
+		center_x = new_offset_x+(1183-offset_x)*scale_w;
+		center_y = 574*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[38].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -406,8 +414,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1210;
-		center_y = 555;
+		center_x = new_offset_x+(1210-offset_x)*scale_w;
+		center_y = 555*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[41].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -422,8 +430,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 915;
-		center_y = 445;
+		center_x = new_offset_x+(915-offset_x)*scale_w;
+		center_y = 445*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[44].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -438,8 +446,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1139;
-		center_y = 619;
+		center_x = new_offset_x+(1139-offset_x)*scale_w;
+		center_y = 619*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[47].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -454,8 +462,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1266;
-		center_y = 405;
+		center_x = new_offset_x+(1266-offset_x)*scale_w;
+		center_y = 405*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[50].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -472,8 +480,8 @@ d3.json("./data/custom.geo.json",function(json) {
 
 		//Luxembourg
 
-		center_x = 1285;
-		center_y = 375;
+		center_x = new_offset_x+(1285-offset_x)*scale_w;
+		center_y = 375*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[56].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -488,8 +496,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1240;
-		center_y = 639;
+		center_x = new_offset_x+(1240-offset_x)*scale_w;
+		center_y = 639*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[59].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -506,8 +514,8 @@ d3.json("./data/custom.geo.json",function(json) {
 
 		// Malte
 
-		center_x = 1061;
-		center_y = 461;
+		center_x = new_offset_x+(1061-offset_x)*scale_w;
+		center_y = 461*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[65].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -522,8 +530,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1110;
-		center_y = 280;
+		center_x = new_offset_x+(1110-offset_x)*scale_w;
+		center_y = 280*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[68].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -538,8 +546,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1215;
-		center_y = 465;
+		center_x = new_offset_x+(1215-offset_x)*scale_w;
+		center_y = 465*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[71].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -554,8 +562,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 912;
-		center_y = 655;
+		center_x = new_offset_x+(912-offset_x)*scale_w;
+		center_y = 655*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[74].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -570,8 +578,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1275;
-		center_y = 570;
+		center_x = new_offset_x+(1275-offset_x)*scale_w;
+		center_y = 570*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[77].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -586,8 +594,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1170;
-		center_y = 315;
+		center_x = new_offset_x+(1170-offset_x)*scale_w;
+		center_y = 315*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[80].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -602,8 +610,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1162;
-		center_y = 569;
+		center_x = new_offset_x+(1162-offset_x)*scale_w;
+		center_y = 569*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+(center_y-1)+" A 15 "+ scale(data[83].Mean) +" 0 0 0 "+ (center_x+5) +","+(center_y-1))
 			.attr("stroke-width",1)
@@ -618,8 +626,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1210;
-		center_y = 525;
+		center_x = new_offset_x+(1210-offset_x)*scale_w;
+		center_y = 525*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[86].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -634,8 +642,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 1365;
-		center_y = 675;
+		center_x = new_offset_x+(1365-offset_x)*scale_w;
+		center_y = 675*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[89].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -650,8 +658,8 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cy",center_y-5)
 			.attr("r",1);
 
-		center_x = 980;
-		center_y = 457;
+		center_x = new_offset_x+(980-offset_x)*scale_w;
+		center_y = 457*scale_h+offset_y;
 		countriesGroup.append("path")
 			.attr("d","M "+(center_x-5)+","+center_y+" A 15 "+ scale(data[92].Mean) +" 0 0 0 "+ (center_x+5) +","+center_y)
 			.attr("stroke-width",1)
@@ -665,7 +673,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			.attr("cx",center_x+3)
 			.attr("cy",center_y-5)
 			.attr("r",1);
-*/
+
 		// label part/////////////////////////////////////
 		countryLabels = countriesGroup
 		   .selectAll("g")
