@@ -5,7 +5,7 @@
   z-index: 0;
 }
 
-#legend, #smiley_legend{
+#map_legend, #smiley_legend{
   position: absolute;
 }
 
@@ -67,7 +67,7 @@
   vertical-align: middle;
 }
 
-div#legend {
+div#map_legend {
   background-color: white;
   border-radius: 5px;
   max-width: 65px;
@@ -76,6 +76,7 @@ div#legend {
   top: 130px;
   left: 20px;
 }
+
 
 div#smiley_legend {
   background-color: white;
