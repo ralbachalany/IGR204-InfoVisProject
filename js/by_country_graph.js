@@ -13,10 +13,10 @@ let svg = d3.select("#by_country")
     .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(1.85,1.85)");
 
 svg.append("text")
-  .attr("x", 0)             
-  .attr("y", +75)
+  .attr("x", 0)
+  .attr("y", +30)
   .attr("id", "title")
-  .attr("text-anchor", "middle")  
+  .attr("text-anchor", "middle")
   .style("fill","white")
   .style("font-size",12)
   .style("font-family","sans-serif")
