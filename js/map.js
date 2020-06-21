@@ -182,7 +182,11 @@ d3.json("./data/custom.geo.json",function(json) {
 		   // add a mouseover action to show name label for feature/country
 		   .on("mouseover", function(d, i) {
 		      if (d.properties.iso_a2 != "ZZ"){
-		      	animate(d3.select(this));
+		      	if (d.properties.iso_a3 != "ZZ"){
+		      		d3.select(this).style("cursor",'pointer');
+		      		animate(d3.select(this));
+		      	}
+		      			      	
 		      	d3.select("#countryLabel" + d.properties.iso_a2).style("display", "block");
 		      }
 		   })
@@ -739,7 +743,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		      	return "countryBg" + d.properties.iso_a3;}
 			});
 
-		window.addEventListener('mousemove', e => {
+		window.addEventListener('mousemove', (e,d) => {
 			d3.selectAll(".countryBg").attr("x",e.pageX + 5);
 			d3.selectAll(".countryBg").attr("y",e.pageY - 100);
 			d3.selectAll(".countryName").attr("x",e.pageX);
@@ -752,7 +756,30 @@ d3.json("./data/custom.geo.json",function(json) {
 			d3.selectAll(".PDLabel").attr("y",e.pageY - 30);
 			d3.selectAll(".URLabel").attr("x",e.pageX + 15);
 			d3.selectAll(".URLabel").attr("y",e.pageY - 15);
-
+			d3.select("#countryBgFI").attr("x",e.pageX -185);
+			d3.select("#countryBgEE").attr("x",e.pageX -185);
+			d3.select("#countryBgLV").attr("x",e.pageX -185);
+			d3.select("#countryBgLT").attr("x",e.pageX -185);
+			d3.select("#countryNameFI").attr("x",e.pageX -185);
+			d3.select("#countryNameEE").attr("x",e.pageX -185);
+			d3.select("#countryNameLV").attr("x",e.pageX -185);
+			d3.select("#countryNameLT").attr("x",e.pageX -185);
+			d3.select("#happinessFI").attr("x",e.pageX -175);
+			d3.select("#happinessEE").attr("x",e.pageX -175);
+			d3.select("#happinessLV").attr("x",e.pageX -175);
+			d3.select("#happinessLT").attr("x",e.pageX -175);
+			d3.select("#GDPLabelFI").attr("x",e.pageX -175);
+			d3.select("#GDPLabelEE").attr("x",e.pageX -175);
+			d3.select("#GDPLabelLV").attr("x",e.pageX -175);
+			d3.select("#GDPLabelLT").attr("x",e.pageX -175);
+			d3.select("#PDLabelFI").attr("x",e.pageX -175);
+			d3.select("#PDLabelEE").attr("x",e.pageX -175);
+			d3.select("#PDLabelLV").attr("x",e.pageX -175);
+			d3.select("#PDLabelLT").attr("x",e.pageX -175);
+			d3.select("#URLabelFI").attr("x",e.pageX -175);
+			d3.select("#URLabelEE").attr("x",e.pageX -175);
+			d3.select("#URLabelLV").attr("x",e.pageX -175);
+			d3.select("#URLabelLT").attr("x",e.pageX -175);
 			});
 
 		// add the text to the label group showing country name
@@ -764,6 +791,12 @@ d3.json("./data/custom.geo.json",function(json) {
 		   .text(function(d) {
 		      return d.properties.name.toUpperCase();
 		   })
+		   .attr("id", function(d) {
+				if(d.properties.iso_a2!="ZZ"){
+		      	return "countryName" + d.properties.iso_a2;}
+		      	else{
+		      	return "countryName" + d.properties.iso_a3;}
+			})
 		   .style("font-size",12)
 		   .call(getTextBox);
 
@@ -778,6 +811,12 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return "Happiness: "+ data[3*indice+2].Mean +"/10";}
 		   		else{return "Happiness";}
 		   })
+		   .attr("id", function(d) {
+				if(d.properties.iso_a2!="ZZ"){
+		      	return "happiness" + d.properties.iso_a2;}
+		      	else{
+		      	return "happiness" + d.properties.iso_a3;}
+			})
 		   .style("fill",'white')
 		   .style("font-size",12)
 		   .call(getTextBox);
@@ -793,6 +832,12 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return "GDP per capita: "+data2[indice].GDP;}
 		   		else{return "GDP";}
 		   		})
+		   .attr("id", function(d) {
+				if(d.properties.iso_a2!="ZZ"){
+		      	return "GDPLabel" + d.properties.iso_a2;}
+		      	else{
+		      	return "GDPLabel" + d.properties.iso_a3;}
+			})
 		   .style("fill",'white')
 		   .style("font-size",12)
 		   .call(getTextBox);
@@ -808,6 +853,12 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return "Public debt: "+data2[indice].Public_debt +"% of GDP";}
 		   		else{return "Public debt";}
 		   		})
+		   .attr("id", function(d) {
+				if(d.properties.iso_a2!="ZZ"){
+		      	return "PDLabel" + d.properties.iso_a2;}
+		      	else{
+		      	return "PDLabel" + d.properties.iso_a3;}
+			})
 		   .style("fill",'white')
 		   .style("font-size",12)
 		   .call(getTextBox);
@@ -823,6 +874,12 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		return "Unemployment: "+data2[indice].Unemployment + "%";}
 		   		else{return "Unemployment";}
 		   		})
+		   .attr("id", function(d) {
+				if(d.properties.iso_a2!="ZZ"){
+		      	return "URLabel" + d.properties.iso_a2;}
+		      	else{
+		      	return "URLabel" + d.properties.iso_a3;}
+			})
 		   .style("fill",'white')
 		   .style("font-size",12)
 		   .call(getTextBox);
