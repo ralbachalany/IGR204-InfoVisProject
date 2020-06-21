@@ -10,28 +10,47 @@ let svg = d3.select("#by_country")
     .attr("width", width_by_country)
     .attr("height", height_by_country)
   .append("g")
-    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(1.8,1.8)");
+    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(2,2)");
 
 svg.append("text")
   .attr("x", 0)             
-  .attr("y", -115)
+  .attr("y", +75)
   .attr("id", "title")
   .attr("text-anchor", "middle")  
-  .style("font-size", "16px");
+  .style("fill","white")
+  .style("font-size",12)
+  .style("font-family","sans-serif")
+  .style("dominant-baseline","middle");
+
+svg.append("text")
+  .attr("x", 0)
+  .attr("y", -15)
+  .attr("id", "happinessLabel")
+  .attr("text-anchor", "middle")
+  .style("fill","white")
+  .style("font-size",8)
+  .style("font-family","sans-serif")
+  .style("dominant-baseline","middle");
 
 svg.append("text")
    .attr("x", 0)
    .attr("y", 0)
    .attr("id", "happiness")
    .attr("text-anchor", "middle")
-   .style("font-size", "10px");
+   .style("fill","white")
+   .style("font-size",12)
+   .style("font-family","sans-serif")
+   .style("dominant-baseline","middle");
 
 svg.append("text")
    .attr("x", 0)
    .attr("y", +15)
    .attr("id", "gender")
    .attr("text-anchor", "middle")
-   .style("font-size", "10px");
+   .style("fill","white")
+   .style("font-size", 8)
+   .style("font-family","sans-serif")
+   .style("dominant-baseline","middle");
 
 function convertStringToMinutes(string){
   return parseInt(string.slice(0,2))*60 + parseInt(string.slice(3,5));
@@ -69,7 +88,10 @@ function getPieChartByCountry(country){
       dataF = rows[1];
 
       svg.select("#title")
-         .text(country)
+         .text(country);
+
+      svg.select("#happinessLabel")
+         .text("Happiness");
 
       d3.csv("data/PieChartData/happiness.csv")
          .row( (d, i) => {
@@ -83,11 +105,6 @@ function getPieChartByCountry(country){
              if(d.country == country){
                svg.select("#happiness")
                   .text(d.happiness+"/10")
-                  .style("fill","white")
-                  .style("font-size",15)
-                  .style("font-family","sans-serif")
-                  .style("dominant-baseline","middle");
-               svg.select("#gender").text("Male");
              }
            });
          });
@@ -137,15 +154,15 @@ function getPieChartByCountry(country){
 
       d3.select("#maleGraph")
         .on("click", function(){
-          update(dataM,"Male");
+          update(dataM,"Males");
         });
 
       d3.select("#femaleGraph")
         .on("click", function(){
-          update(dataF,"Female");
+          update(dataF,"Females");
         });
 
-      update(dataM,"Male");
+      update(dataM,"Males");
 
   });
 
