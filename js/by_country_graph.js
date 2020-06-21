@@ -75,7 +75,11 @@ function getPieChartByCountry(country){
            rows2.forEach(function(d) {
              if(d.country == country){
                svg.select("#happiness")
-                  .text("Happiness: " + d.happiness);
+                  .text(d.happiness+"/10")
+                  .style("fill","white")
+                  .style("font-size",15)
+                  .style("font-family","sans-serif")
+                  .style("dominant-baseline","middle");
              }
            });
          });
