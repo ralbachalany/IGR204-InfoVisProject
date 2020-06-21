@@ -10,7 +10,7 @@ let svg = d3.select("#by_country")
     .attr("width", width_by_country)
     .attr("height", height_by_country)
   .append("g")
-    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(2,2)");
+    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(1.85,1.85)");
 
 svg.append("text")
   .attr("x", 0)             
