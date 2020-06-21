@@ -74,12 +74,20 @@ function getPieChartByCountry(country){
           Working: convertStringToMinutes(d["Work"]),
           Studying: convertStringToMinutes(d["Studying"]),
           Household: convertStringToMinutes(d["Household"]),
+          Food_Management: convertStringToMinutes(d["Food management"]),
+          Chores: convertStringToMinutes(d["Chores"]),
+          Handicraft: convertStringToMinutes(d["Handicraft & Construction"]),
           Gardening: convertStringToMinutes(d["Gardening & Pet care"]),
           Shopping: convertStringToMinutes(d["Shopping"]),
+          Childcare: convertStringToMinutes(d["Childcare"]),
           Social_Life: convertStringToMinutes(d["Social life & Leisure"]),
           Sports: convertStringToMinutes(d["Sports"]),
+          Hobbies: convertStringToMinutes(d["Hobbies"]),
+          Computing: convertStringToMinutes(d["Computing"]),
+          Reading: convertStringToMinutes(d["Reading"]),
           TV_or_Radio: convertStringToMinutes(d["TV, Radio & Entertainment"]),
-          Traveling: convertStringToMinutes(d["Travel"])
+          Traveling: convertStringToMinutes(d["Travel"]),
+          Unspecified: convertStringToMinutes(d["Unspecified"])
       };
   })
   .get( (error, rows) => {
