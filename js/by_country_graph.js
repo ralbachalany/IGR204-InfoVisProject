@@ -57,7 +57,7 @@ function convertStringToMinutes(string){
 }
 
 z = d3.scaleOrdinal()
-      .range(["#a9c5fd", "#fbfd52", "#fda899", "#06f6a4", "#f9dc56",
+    .range(["#a9c5fd", "#fbfd52", "#fda899", "#06f6a4", "#f9dc56",
             "#eba6ff", "#f9feae", "#b1fb27", "#9ccfbe", "#f1e9e6",
             "#ebb678", "#fec0df", "#cac2fc", "#fee5d4", "#6fdf6e",
             "#d3fe94", "#ffba6e", "#c7ecf9", "#72dbf2", "#cedbd8"]);
@@ -71,22 +71,22 @@ function getPieChartByCountry(country){
           Personal_Care : convertStringToMinutes(d["Personal care"]),
           Sleeping: convertStringToMinutes(d["Sleeping & Resting"]),
           Eating: convertStringToMinutes(d["Eating"]),
-          Working: convertStringToMinutes(d["Work"]),
+          Work: convertStringToMinutes(d["Work"]),
           Studying: convertStringToMinutes(d["Studying"]),
           Household: convertStringToMinutes(d["Household"]),
-          Food_Management: convertStringToMinutes(d["Food management"]),
+          "Food management": convertStringToMinutes(d["Food management"]),
           Chores: convertStringToMinutes(d["Chores"]),
-          Handicraft: convertStringToMinutes(d["Handicraft & Construction"]),
-          Gardening: convertStringToMinutes(d["Gardening & Pet care"]),
+          "Handicraft & Construction": convertStringToMinutes(d["Handicraft & Construction"]),
+          "Gardening & Pet care": convertStringToMinutes(d["Gardening & Pet care"]),
           Shopping: convertStringToMinutes(d["Shopping"]),
           Childcare: convertStringToMinutes(d["Childcare"]),
-          Social_Life: convertStringToMinutes(d["Social life & Leisure"]),
+          "Social life & Leisure": convertStringToMinutes(d["Social life & Leisure"]),
           Sports: convertStringToMinutes(d["Sports"]),
           Hobbies: convertStringToMinutes(d["Hobbies"]),
           Computing: convertStringToMinutes(d["Computing"]),
           Reading: convertStringToMinutes(d["Reading"]),
-          TV_or_Radio: convertStringToMinutes(d["TV, Radio & Entertainment"]),
-          Traveling: convertStringToMinutes(d["Travel"]),
+          "TV, Radio & Entertainment": convertStringToMinutes(d["TV, Radio & Entertainment"]),
+          Travel: convertStringToMinutes(d["Travel"]),
           Unspecified: convertStringToMinutes(d["Unspecified"])
       };
   })
