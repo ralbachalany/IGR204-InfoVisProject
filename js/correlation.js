@@ -136,6 +136,20 @@ d3.csv("data/correlation.csv", function(error, rows) {
         })
         .attr("y", rect_border/2 -ySpace / 2);
 
+      let div = d3.select("body").append("div").attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("z-index", 10)
+        .style("visibility", "hidden")
+        .style("background-color", "black")
+        .style("color", "white")
+        .style("padding", "15px")
+        .style("border-radius", "10px")
+        .style("border","0px solid black")
+        .style("opacity", 0.8)
+        .style("font-family", "sans-serif")
+        .style("font-size", 12)
+        .style("text-align", "center");
+
       cor.filter(function(d){
               if((d.x!="")&&(d.y!="")) return true;
               return false;
@@ -156,12 +170,16 @@ d3.csv("data/correlation.csv", function(error, rows) {
             return -Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height) / 2
           })
           .on("mouseenter",function(d){
-            tooltip.style("opacity",0.8)
-              .attr("transform", "translate(" + (x(d.x)+label_x_length+xSpace) + " ,"+(y(d.y)+label_y_length-10)+")");
-            tool_text.text(d.value.toFixed(3));
+            div.html(d.value.toFixed(3))
+              .style("visibility", "visible")
+              .style("font-size",12)
+              .style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
           })
-          .on("mouseout",function(d){
-            tooltip.style("opacity",0);
+          .on("mouseout", function(d) {
+            div.style("visibility", "hidden");
+          })
+          .on("mousemove", function(d) {
+            div.style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
           });
 
       cor.filter(function(d){
@@ -231,21 +249,4 @@ d3.csv("data/correlation.csv", function(error, rows) {
         .attr('y', aS(d))
     });
 
-    var tooltip = svg
-      .append("g")
-      .style("opacity", 0);
-
-    tooltip.append("rect")
-      .style("fill", "black")
-	  .style("rx", "5px")
-	  .style("stroke", "black")
-      .attr("width",50)
-      .attr("height",25);
-
-
-    var tool_text = tooltip.append("text")
-      .attr("transform", "translate(25,12.5)")
-	  .attr("alignment-baseline", "middle")
-      .style("fill","white")
-      .style("font-size",12);
 });
