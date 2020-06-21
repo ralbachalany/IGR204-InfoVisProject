@@ -10,7 +10,21 @@ let svg = d3.select("#by_country")
     .attr("width", width_by_country)
     .attr("height", height_by_country)
   .append("g")
-    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(1.8,1.8)")
+    .attr("transform", "translate(" + width_by_country / 2 + "," + height_by_country / 2 + ") scale(1.8,1.8)");
+
+svg.append("text")
+  .attr("x", 0)             
+  .attr("y", -115)
+  .attr("id", "title")
+  .attr("text-anchor", "middle")  
+  .style("font-size", "16px");
+
+svg.append("text")
+   .attr("x", 0)
+   .attr("y", 0)
+   .attr("id", "happiness")
+   .attr("text-anchor", "middle")
+   .style("font-size", "12px");
 
 function convertStringToMinutes(string){
   return parseInt(string.slice(0,2))*60 + parseInt(string.slice(3,5));
@@ -23,7 +37,7 @@ z = d3.scaleOrdinal()
             "#d3fe94", "#ffba6e", "#c7ecf9", "#72dbf2", "#cedbd8"]);
 
 
-function getPieChartByCountry(country){
+function getPieChartByCountry(country, happiness){
   str = "data/PieChartData/" + country + ".csv";
   d3.csv(str)
   .row( (d, i) => {
@@ -46,6 +60,12 @@ function getPieChartByCountry(country){
 
       dataM = rows[0];
       dataF = rows[1];
+
+      svg.select("#title")
+         .text(country)
+
+      svg.select("#happiness")
+         .text("Happiness: " + happiness);
 
       function update(data){
 
@@ -75,7 +95,7 @@ function getPieChartByCountry(country){
           .append("path")
           .merge(slices)
           .transition()
-          .duration(1000)
+          .duration(700)
           .attr("d", arc)
           .attr("fill", function(d) { return(z(d.data.key)) })
           .attr("stroke", "white")
