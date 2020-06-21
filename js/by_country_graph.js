@@ -14,21 +14,21 @@ let svg = d3.select("#by_country")
 
 svg.append("text")
   .attr("x", 0)
-  .attr("y", +30)
+  .attr("y", 20)
   .attr("id", "title")
   .attr("text-anchor", "middle")
   .style("fill","white")
-  .style("font-size",12)
+  .style("font-size",15)
   .style("font-family","sans-serif")
   .style("dominant-baseline","middle");
 
 svg.append("text")
   .attr("x", 0)
-  .attr("y", -15)
+  .attr("y", -23)
   .attr("id", "happinessLabel")
   .attr("text-anchor", "middle")
   .style("fill","white")
-  .style("font-size",8)
+  .style("font-size",9)
   .style("font-family","sans-serif")
   .style("dominant-baseline","middle");
 
@@ -38,17 +38,17 @@ svg.append("text")
    .attr("id", "happiness")
    .attr("text-anchor", "middle")
    .style("fill","white")
-   .style("font-size",12)
+   .style("font-size",23)
    .style("font-family","sans-serif")
    .style("dominant-baseline","middle");
 
 svg.append("text")
    .attr("x", 0)
-   .attr("y", +15)
+   .attr("y", 37)
    .attr("id", "gender")
    .attr("text-anchor", "middle")
    .style("fill","white")
-   .style("font-size", 8)
+   .style("font-size", 9)
    .style("font-family","sans-serif")
    .style("dominant-baseline","middle");
 
