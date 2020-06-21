@@ -37,15 +37,15 @@ d3.csv("data/correlation.csv", function(error, rows) {
     });
 
     var margin = {
-      top: 80,
-      right: 33,
+      top: 200,
+      right: 48,
       bottom: 30,
-      left: 45
+      left: 150
     },
     bound = d3.select("#correlation").node().getBoundingClientRect();
     svg_width = bound.width,
     svg_height = bound.height,
-    width = svg_width-margin.right-margin.left,
+    width = svg_width-margin.left-margin.right,
     height = svg_height-margin.top-margin.bottom,
     domainX = d3.set(data.map(function(d) {
         return d.x
@@ -57,24 +57,24 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .domain([-1,0,1])
       .range(["#B22222", "#fff", "#000080"]);
 
-    domainX.unshift("");
-    domainY.unshift("");
+    xSpace = width/(domainX.length-1),
+    ySpace = height/(domainY.length-1);
 
     var x = d3.scalePoint()
-      .range([margin.left, width-margin.right-width/domainX.length])
-      .domain(domainX),
+      .range([0, width])
+      .domain(domainX);
     y = d3.scalePoint()
-      .range([margin.top, height-margin.bottom-height/domainY.length])
-      .domain(domainY),
-    xSpace = width/domainX.length,
-    ySpace = height/domainY.length;
+      .range([0, height])
+      .domain(domainY);
+
+    var rect_border = 10;
+    var rect_radius = 3;
 
     var svg = d3.select("#correlation")
       .append("svg")
       .attr("width", svg_width)
       .attr("height", svg_height)
-      .append("g")
-      .attr("transform", "translate("+ margin.left+","+margin.top+")");
+      .append("g");
 
     var cor = svg.selectAll(".cor")
       .data(data)
@@ -82,11 +82,10 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .append("g")
       .attr("class", "cor")
       .attr("transform", function(d) {
-        return "translate(" + (x(d.x)+xSpace/2-d.add_width) + "," + (y(d.y)+ySpace/2-d.add_height) + ")";
+        return "translate(" + (x(d.x)-xSpace+margin.left-d.add_width) + "," + (y(d.y)-ySpace+margin.top-d.add_height) + ")";
       });
     console.debug("test : "+Math.min(xSpace,ySpace));
-    var rect_border = 10;
-    var rect_radius = 3;
+
 
     var color_label = d3.scaleOrdinal()
     .range(["#cedbd8","#a9c5fd", "#fbfd52", "#fda899", "#06f6a4", "#f9dc56",
@@ -204,7 +203,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
             .attr("transform","rotate(-90)");
 
     var aS = d3.scaleLinear()
-      .range([0, svg_height-label_y_length-margin.top-margin.bottom-ySpace])
+      .range([0, height])
       .domain([1, -1]);
 
     var yA = d3.axisRight()
@@ -215,7 +214,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .attr("class","y axis")
       .call(yA)
       // .attr("transform", "translate(" + (label_length+width + margin.right / 2) + " ,"+label_length+")")
-      .attr("transform", "translate(" + (svg_width-label_x_length-margin.left+20) + " ,"+(margin.top+xSpace)+")");
+      .attr("transform", "translate(" + (svg_width-label_x_length+20) + " ,"+(margin.top-ySpace/2)+")");
 
     var iR = d3.range(-1, 1.01, 0.01);
     var h = height/ iR.length +3;
