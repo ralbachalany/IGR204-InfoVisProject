@@ -34,6 +34,8 @@ body {
 
 #by_country_buttons {
   text-align: center;
+  position: relative;
+  top: 20%;
 }
 
 #maleGraph, #femaleGraph {
