@@ -201,7 +201,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		if (d.properties.iso_a2 != "ZZ"){getPieChartByCountry(d.properties.sovereignt);}
 		   })
 		;
-		d3.selectAll(".countryNull").style("fill",'white');
+		d3.selectAll(".countryNull").style("fill",'lightgray');
 		d3.selectAll(".countryNull").style("stroke",'lightslategray');
 		d3.selectAll(".countryNull").style("stroke-width",0.5);
 
