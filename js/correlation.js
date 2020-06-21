@@ -38,9 +38,9 @@ d3.csv("data/correlation.csv", function(error, rows) {
 
     var margin = {
       top: 200,
-      right: 48,
+      right: 60,
       bottom: 30,
-      left: 150
+      left: 130
     },
     bound = d3.select("#correlation").node().getBoundingClientRect();
     svg_width = bound.width,
@@ -70,6 +70,8 @@ d3.csv("data/correlation.csv", function(error, rows) {
     var rect_border = 10;
     var rect_radius = 3;
 
+    cell_size = Math.min(xSpace-rect_border,ySpace-rect_border);
+
     var svg = d3.select("#correlation")
       .append("svg")
       .attr("width", svg_width)
@@ -82,7 +84,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .append("g")
       .attr("class", "cor")
       .attr("transform", function(d) {
-        return "translate(" + (x(d.x)-xSpace+margin.left-d.add_width) + "," + (y(d.y)-ySpace+margin.top-d.add_height) + ")";
+        return "translate(" + (x(d.x)-xSpace+margin.left-d.add_width+cell_size/2) + "," + (y(d.y)-ySpace+margin.top-d.add_height+cell_size/2) + ")";
       });
     console.debug("test : "+Math.min(xSpace,ySpace));
 
@@ -168,7 +170,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
             })
             .append("circle")
             .attr("r", function(d){
-              rayon = Math.min(xSpace-15,ySpace-15)*Math.abs(d.value) + 0.1;
+              rayon = Math.min(xSpace-rect_border-10,ySpace-rect_border-10)*Math.abs(d.value) + 0.1;
               return rayon
             })
             .style("fill", function(d){
@@ -203,7 +205,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
             .attr("transform","rotate(-90)");
 
     var aS = d3.scaleLinear()
-      .range([0, height])
+      .range([0, height-rect_border])
       .domain([1, -1]);
 
     var yA = d3.axisRight()
@@ -214,7 +216,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .attr("class","y axis")
       .call(yA)
       // .attr("transform", "translate(" + (label_length+width + margin.right / 2) + " ,"+label_length+")")
-      .attr("transform", "translate(" + (svg_width-label_x_length+20) + " ,"+(margin.top-ySpace/2)+")");
+      .attr("transform", "translate(" + (svg_width-label_x_length+20) + " ,"+(margin.top+rect_border/2+cell_size/2-ySpace/2)+")");
 
     var iR = d3.range(-1, 1.01, 0.01);
     var h = height/ iR.length +3;
