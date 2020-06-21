@@ -1,6 +1,6 @@
 d3.csv("data/correlation.csv", function(error, rows) {
     var data = [];
-    var label_y_length = 100;
+    var label_y_length = 130;
     var label_x_length = 70;
     for(attribute in rows[0]){
       var y = attribute;
@@ -67,7 +67,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
       .range([0, height])
       .domain(domainY);
 
-    var rect_border = 10;
+    var rect_border = xSpace*0.1;
     var rect_radius = 3;
 
     cell_size = Math.min(xSpace-rect_border,ySpace-rect_border);
@@ -170,7 +170,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
             })
             .append("circle")
             .attr("r", function(d){
-              rayon = Math.min(xSpace-rect_border-10,ySpace-rect_border-10)*Math.abs(d.value) + 0.1;
+              rayon = Math.min((xSpace-rect_border),(ySpace-rect_border))*0.8*Math.abs(d.value) + 0.1;
               return rayon
             })
             .style("fill", function(d){

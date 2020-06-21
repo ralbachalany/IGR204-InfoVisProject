@@ -103,7 +103,7 @@ var updateColorLegend = function(min,max) {
 	  .attr('y', aS(d))
   });
 }
-
+/*
 var updateColorLegendGDP = function(min,max) {
 	d3.selectAll("#map_legend > svg > *").remove();
   var color = d3.scaleLinear()
@@ -138,7 +138,7 @@ var updateColorLegendGDP = function(min,max) {
 	  .attr('x',0)
 	  .attr('y', aS(d))
   });
-}
+}*/
 
 // get map data
 d3.json("./data/custom.geo.json",function(json) {
@@ -213,7 +213,7 @@ d3.json("./data/custom.geo.json",function(json) {
 			var min = d3.min(data2, function(d) { return +d.GDP; });
 			var color_scale = d3.scaleLinear()
 			.domain([min,max])
-			.range([0,180]);
+			.range([0,120]);
 
 			d3.selectAll(".country")
 			.style("fill", function(d){
@@ -223,7 +223,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		   		let tempH = color_scale(data2[indice].GDP);
 		   		return 'hsl('+tempH+',100%,65%)';
 			})
-			updateColorLegendGDP(min,max);
+			updateColorLegend(min,max);
 
 		}
     else if (radioValue()=="Unemployment"){
@@ -930,8 +930,8 @@ function updateColor(){
 	  var min = d3.min(data2, function(d) { return +d.GDP; });
 	  var color_scale = d3.scaleLinear()
 	  .domain([min,max])
-	  .range([0,180]);
-	  updateColorLegendGDP(min,max);
+	  .range([0,120]);
+	  updateColorLegend(min,max);
 	  console.log(min);
 	  console.log(max);
 
@@ -950,7 +950,7 @@ function updateColor(){
 	  var color_scale = d3.scaleLinear()
 	  .domain([min,max])
 	  .range([0,120]);
-	  updateColorLegend(min,max);
+	  updateColorLegend(max,min);
 	  console.log(min);
 	  console.log(max);
 
