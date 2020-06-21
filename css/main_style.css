@@ -31,3 +31,16 @@ body {
   height: 50%;
   position: relative;
 }
+
+#by_country_buttons {
+  text-align: center;
+}
+
+#maleGraph, #femaleGraph {
+  background-color: white;
+  border: 2px solid darkslateblue;
+  border-radius: 5px;
+  margin: 5px;
+  padding:5px;
+  min-width: 100px;
+}
