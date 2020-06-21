@@ -102,16 +102,16 @@ d3.csv("data/correlation.csv", function(error, rows) {
           })
         .append("rect")
         .attr("width", function(d){
-          return Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width);
+          return xSpace-rect_border+d.add_width;
         })
         .attr("height", function(d){
-          return Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height);
+          return ySpace-rect_border+d.add_height;
         })
         .attr("rx",4)
         .attr("ry",4)
         .attr("x", rect_border/2 -xSpace / 2)
         .attr("y", function(d){
-          return -Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height) / 2
+          return -(ySpace-rect_border+d.add_height) / 2
         })
 
       cor.filter(function(d){
@@ -121,10 +121,10 @@ d3.csv("data/correlation.csv", function(error, rows) {
         .append("rect")
         .style('stroke-width',0)
         .attr("width", function(d){
-          return Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width);
+          return xSpace-rect_border+d.add_width;
         })
         .attr("height", function(d){
-          return Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height);
+          return ySpace-rect_border+d.add_height;
         })
         .style("fill",function(d){
           return color_label(d.x);
@@ -132,7 +132,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
         .attr("rx",rect_radius)
         .attr("ry",rect_radius)
         .attr("x", function(d){
-          return -Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width) / 2
+          return -(xSpace-rect_border+d.add_width) / 2
         })
         .attr("y", rect_border/2 -ySpace / 2);
 
@@ -156,18 +156,18 @@ d3.csv("data/correlation.csv", function(error, rows) {
             })
           .append("rect")
           .attr("width", function(d){
-            return Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width);
+            return xSpace-rect_border+d.add_width;
           })
           .attr("height", function(d){
-            return Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height);
+            return ySpace-rect_border+d.add_height;
           })
           .attr("rx",rect_radius)
           .attr("ry",rect_radius)
           .attr("x", function(d){
-            return -Math.min(xSpace-rect_border+d.add_width,ySpace-rect_border+d.add_width) / 2
+            return -(xSpace-rect_border+d.add_width) / 2
           })
           .attr("y", function(d){
-            return -Math.min(xSpace-rect_border+d.add_height,ySpace-rect_border+d.add_height) / 2
+            return -(ySpace-rect_border+d.add_height) / 2
           })
           .on("mouseenter",function(d){
             div.html(d.value.toFixed(3))
