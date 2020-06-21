@@ -37,7 +37,7 @@ z = d3.scaleOrdinal()
             "#d3fe94", "#ffba6e", "#c7ecf9", "#72dbf2", "#cedbd8"]);
 
 
-function getPieChartByCountry(country, happiness){
+function getPieChartByCountry(country){
   str = "data/PieChartData/" + country + ".csv";
   d3.csv(str)
   .row( (d, i) => {
@@ -64,8 +64,21 @@ function getPieChartByCountry(country, happiness){
       svg.select("#title")
          .text(country)
 
-      svg.select("#happiness")
-         .text("Happiness: " + happiness);
+      d3.csv("data/PieChartData/happiness.csv")
+         .row( (d, i) => {
+           return {
+             country : d["Country"],
+             happiness : d["Happiness"]
+           };
+         })
+         .get( (error2, rows2) => {
+           rows2.forEach(function(d) {
+             if(d.country == country){
+               svg.select("#happiness")
+                  .text("Happiness: " + d.happiness);
+             }
+           });
+         });
 
       function update(data){
 
@@ -105,54 +118,6 @@ function getPieChartByCountry(country, happiness){
         slices
           .exit()
           .remove();
-
-        /*
-        polylines
-          .enter()
-          .append("polyline")
-          .merge(polylines)
-          .transition()
-          .duration(1000)
-          .attr("stroke", "black")
-          .style("fill", "none")
-          .attr("stroke-width", 0.5)
-          .attr("points", function(d) {
-              var posA = arc.centroid(d);
-              var posB = outerArc.centroid(d);
-              var posC = outerArc.centroid(d);
-              var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-              posC[0] = radius * 0.8 * (midAngle < Math.PI ? 1 : -1);
-              return [posA, posB, posC]
-            });
-
-        polylines
-          .exit()
-          .remove();
-
-        labels
-          .enter()
-          .append("text")
-          .merge(labels)
-          .transition()
-          .duration(1000)
-          .text( function(d) { console.log(d.data.key) ; return d.data.key } )
-          .attr("transform", function(d) {
-            var pos = outerArc.centroid(d);
-            var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-            pos[0] = radius * 0.85 * (midAngle < Math.PI ? 1 : -1);
-            return "translate(" + pos + ")";
-          })
-          .style("text-anchor", function(d) {
-            var midAngle = d.startAngle + (d.endAngle - d.startAngle) / 2;
-            return (midAngle < Math.PI ? "start" : "end");
-          })
-          .style("font-family", "sans serif")
-          .style("font-size", 6)
-
-          labels
-            .exit()
-            .remove();
-        */
 
       }
 

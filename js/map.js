@@ -198,7 +198,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		      	}
 		   })
 		   .on("click", function(d, i) {
-		   		if (d.properties.iso_a2 != "ZZ"){getPieChartByCountry(d.properties.sovereignt, parseInt(d.Mean));}
+		   		if (d.properties.iso_a2 != "ZZ"){getPieChartByCountry(d.properties.sovereignt);}
 		   })
 		;
 		d3.selectAll(".countryNull").style("fill",'white');
