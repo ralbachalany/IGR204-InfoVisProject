@@ -24,7 +24,14 @@ svg.append("text")
    .attr("y", 0)
    .attr("id", "happiness")
    .attr("text-anchor", "middle")
-   .style("font-size", "12px");
+   .style("font-size", "10px");
+
+svg.append("text")
+   .attr("x", 0)
+   .attr("y", +15)
+   .attr("id", "gender")
+   .attr("text-anchor", "middle")
+   .style("font-size", "10px");
 
 function convertStringToMinutes(string){
   return parseInt(string.slice(0,2))*60 + parseInt(string.slice(3,5));
@@ -75,16 +82,23 @@ function getPieChartByCountry(country){
            rows2.forEach(function(d) {
              if(d.country == country){
                svg.select("#happiness")
+<<<<<<< HEAD
                   .text(d.happiness+"/10")
                   .style("fill","white")
                   .style("font-size",15)
                   .style("font-family","sans-serif")
                   .style("dominant-baseline","middle");
+=======
+                  .text("Happiness: " + d.happiness);
+               svg.select("#gender").text("Male");
+>>>>>>> 9d91dd18986f6199c538d3c88a5814b2965a8b45
              }
            });
          });
 
-      function update(data){
+      function update(data,gender){
+
+        d3.select("#gender").text(gender);
 
         let pie = d3.pie()
                     .sort(null)
@@ -127,15 +141,15 @@ function getPieChartByCountry(country){
 
       d3.select("#maleGraph")
         .on("click", function(){
-          update(dataM);
+          update(dataM,"Male");
         });
 
       d3.select("#femaleGraph")
         .on("click", function(){
-          update(dataF);
+          update(dataF,"Female");
         });
 
-      update(dataM);
+      update(dataM,"Male");
 
   });
 
