@@ -82,16 +82,12 @@ function getPieChartByCountry(country){
            rows2.forEach(function(d) {
              if(d.country == country){
                svg.select("#happiness")
-<<<<<<< HEAD
                   .text(d.happiness+"/10")
                   .style("fill","white")
                   .style("font-size",15)
                   .style("font-family","sans-serif")
                   .style("dominant-baseline","middle");
-=======
-                  .text("Happiness: " + d.happiness);
                svg.select("#gender").text("Male");
->>>>>>> 9d91dd18986f6199c538d3c88a5814b2965a8b45
              }
            });
          });
