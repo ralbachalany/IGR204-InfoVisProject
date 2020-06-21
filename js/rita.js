@@ -2,7 +2,7 @@ bound_rita = d3.select("#rita").node().getBoundingClientRect();
 const w_rita = bound_rita.width-20;
 const h_rita = bound_rita.height;
 
-let margin = {top: 50, right: 70, bottom: 20, left: 120};
+let margin = {top: 50, right: 70, bottom: 50, left: 120};
 
 let dataset = [];
 let keys = [];
