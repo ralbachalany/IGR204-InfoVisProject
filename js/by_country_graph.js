@@ -19,7 +19,6 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("fill","white")
   .style("font-size","1.5vmin")
-  .style("font-family","sans-serif")
   .style("dominant-baseline","middle");
 
 svg.append("text")
@@ -29,7 +28,6 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("fill","white")
   .style("font-size","1.2vmin")
-  .style("font-family","sans-serif")
   .style("dominant-baseline","middle");
 
 svg.append("text")
@@ -39,7 +37,6 @@ svg.append("text")
    .attr("text-anchor", "middle")
    .style("fill","white")
    .style("font-size","2.5vmin")
-   .style("font-family","sans-serif")
    .style("dominant-baseline","middle");
 
 svg.append("text")
@@ -49,7 +46,6 @@ svg.append("text")
    .attr("text-anchor", "middle")
    .style("fill","white")
    .style("font-size", "1.2vmin")
-   .style("font-family","sans-serif")
    .style("dominant-baseline","middle");
 
 function convertStringToMinutes(string){
@@ -152,7 +148,6 @@ function getPieChartByCountry(country){
             .style("border-radius", "10px")
             .style("border","0px solid black")
             .style("opacity", 0.8)
-            //.style("font-family", "sans-serif")
             .style("font-size", 12)
             .style("text-align", "center");
 
