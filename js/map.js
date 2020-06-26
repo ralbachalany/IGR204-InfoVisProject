@@ -10,8 +10,8 @@ var h_map_bis = bound_map_bis.height;
 var offset_x = 880;
 var new_offset_x = 12;
 const scale_w = w_map_bis/(1380-offset_x);
-const scale_h = h_map_bis/820;
-var offset_y = 37;
+const scale_h = scale_w;
+var offset_y = (h_map)/2-1.2*w_map*0.58/Math.PI;
 // Define map projection
 var projection = d3
    .geoMercator()
@@ -186,7 +186,7 @@ d3.json("./data/custom.geo.json",function(json) {
 		      		d3.select(this).style("cursor",'pointer');
 		      		animate(d3.select(this));
 		      	}
-		      			      	
+
 		      	d3.select("#countryLabel" + d.properties.iso_a2).style("display", "block");
 		      }
 		   })
