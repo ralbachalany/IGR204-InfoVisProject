@@ -146,7 +146,7 @@ d3.csv("data/correlation.csv", function(error, rows) {
         .style("border-radius", "10px")
         .style("border","0px solid black")
         .style("opacity", 0.8)
-        .style("font-family", "sans-serif")
+        //.style("font-family", "sans-serif")
         .style("font-size", 12)
         .style("text-align", "center");
 
