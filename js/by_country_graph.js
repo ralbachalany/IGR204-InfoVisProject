@@ -142,9 +142,35 @@ function getPieChartByCountry(country){
         let labels = svg.selectAll("text")
                         .data(dataTest);
 
+        let div = d3.select("body").append("div").attr("class", "tooltip")
+            .style("position", "absolute")
+            .style("z-index", 10)
+            .style("visibility", "hidden")
+            .style("background-color", "black")
+            .style("color", "white")
+            .style("padding", "15px")
+            .style("border-radius", "10px")
+            .style("border","0px solid black")
+            .style("opacity", 0.8)
+            .style("font-family", "sans-serif")
+            .style("font-size", 12)
+            .style("text-align", "center");
+
         slices
           .enter()
           .append("path")
+          .on("mouseenter",function(d){
+            div.html("<h3>" + d.data.key + "</h2>"+ "Time spent : " + Math.trunc(d.data.value/60) + "h" + d.data.value%60)
+              .style("visibility", "visible")
+              .style("font-size",12)
+              .style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
+          })
+          .on("mouseout", function(d) {
+            div.style("visibility", "hidden");
+          })
+          .on("mousemove", function(d) {
+            div.style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
+          })
           .merge(slices)
           .transition()
           .duration(700)
