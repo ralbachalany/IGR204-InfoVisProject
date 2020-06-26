@@ -160,7 +160,7 @@ function getPieChartByCountry(country){
           .enter()
           .append("path")
           .on("mouseenter",function(d){
-            div.html("<h3>" + d.data.key + "</h2>"+ "Time spent : " + Math.trunc(d.data.value/60) + "h" + d.data.value%60)
+            div.html("<h4>" + d.data.key + "</h4>"+ "Time spent: " + Math.trunc(d.data.value/60) + " h " + d.data.value%60 + " min")
               .style("visibility", "visible")
               .style("font-size",12)
               .style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
