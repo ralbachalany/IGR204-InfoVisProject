@@ -22,7 +22,7 @@ let div = d3.select("body").append("div").attr("class", "tooltip")
 .style("border-radius", "10px")
 .style("border","0px solid black")
 .style("opacity", 0.8)
-.style("font-family", "sans-serif")
+//.style("font-family", "sans-serif")
 .style("font-size", 12)
 .style("text-align", "center");
 
@@ -154,7 +154,7 @@ function draw() {
 
     svg_rita.append("g")
       .attr("fill", "white")
-      .attr("font-family", "sans-serif")
+      //.attr("font-family", "sans-serif")
       .attr("font-size", 8)
       .attr("dominant-baseline", "middle")
       .attr("text-anchor","end")

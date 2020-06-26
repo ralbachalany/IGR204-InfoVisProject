@@ -19,7 +19,7 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("fill","white")
   .style("font-size",15)
-  .style("font-family","sans-serif")
+  //.style("font-family","sans-serif")
   .style("dominant-baseline","middle");
 
 svg.append("text")
@@ -29,7 +29,7 @@ svg.append("text")
   .attr("text-anchor", "middle")
   .style("fill","white")
   .style("font-size",9)
-  .style("font-family","sans-serif")
+  //.style("font-family","sans-serif")
   .style("dominant-baseline","middle");
 
 svg.append("text")
@@ -39,7 +39,7 @@ svg.append("text")
    .attr("text-anchor", "middle")
    .style("fill","white")
    .style("font-size",23)
-   .style("font-family","sans-serif")
+   //.style("font-family","sans-serif")
    .style("dominant-baseline","middle");
 
 svg.append("text")
@@ -49,7 +49,7 @@ svg.append("text")
    .attr("text-anchor", "middle")
    .style("fill","white")
    .style("font-size", 9)
-   .style("font-family","sans-serif")
+   //.style("font-family","sans-serif")
    .style("dominant-baseline","middle");
 
 function convertStringToMinutes(string){
@@ -68,7 +68,7 @@ function getPieChartByCountry(country){
   d3.csv(str)
   .row( (d, i) => {
       return {
-          Personal_Care : convertStringToMinutes(d["Personal care"]),
+          Personal_care: convertStringToMinutes(d["Personal care"]),
           Sleeping: convertStringToMinutes(d["Sleeping & Resting"]),
           Eating: convertStringToMinutes(d["Eating"]),
           Work: convertStringToMinutes(d["Work"]),
@@ -152,7 +152,7 @@ function getPieChartByCountry(country){
             .style("border-radius", "10px")
             .style("border","0px solid black")
             .style("opacity", 0.8)
-            .style("font-family", "sans-serif")
+            //.style("font-family", "sans-serif")
             .style("font-size", 12)
             .style("text-align", "center");
 
@@ -160,7 +160,7 @@ function getPieChartByCountry(country){
           .enter()
           .append("path")
           .on("mouseenter",function(d){
-            div.html("<h4>" + d.data.key + "</h4>"+ "Time spent: " + Math.trunc(d.data.value/60) + " h " + d.data.value%60 + " min")
+            div.html(d.data.key.toUpperCase().replace("_"," ") + "<br>" + "Time spent: " + Math.trunc(d.data.value/60) + " h " + d.data.value%60 + " min")
               .style("visibility", "visible")
               .style("font-size",12)
               .style("top", (d3.event.pageY+15)+"px").style("left",(d3.event.pageX+15)+"px");
